@@ -1,10 +1,10 @@
 import React from 'react';
-import FilmSmallCard from '../ui/film-small-card';
+import FilmSmallCard from './film-small-card';
 
 function FilmsList() {
   return (
     <div className="catalog__films-list">
-      <FilmSmallCard />
+      {new Array(5).fill().map((film) => <FilmSmallCard key = {film} />)}
     </div>
   );
 }

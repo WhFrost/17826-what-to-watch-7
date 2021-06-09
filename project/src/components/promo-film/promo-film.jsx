@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Header from '../ui/header';
-import FilmCard from '../ui/film-card';
+import Header from '../header/header';
+import FilmCard from './film-card';
 
 function PromoFilm(props) {
   const {film} = props;

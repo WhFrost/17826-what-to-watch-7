@@ -1,5 +1,5 @@
 import React from 'react';
-import Filter from '../ui/filter';
+import Filter from './filter';
 
 function FiltersList() {
   return (

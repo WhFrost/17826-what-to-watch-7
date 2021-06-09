@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PromoFilm from '../promo-film/promo-film';
 import Catalog from '../catalog/catalog';
-import Footer from '../ui/footer';
+import Footer from '../footer/footer';
 
 function MainPage(props) {
   const {film} = props;
