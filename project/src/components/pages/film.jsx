@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import Header from '../header/header';
 import FilmList from '../films-list/films-list';
 import Footer from '../footer/footer';
@@ -37,7 +38,7 @@ function Film() {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn film-card__button">Add review</a>
+                <Link to="/film/:id/review" className="btn film-card__button">Add review</Link>
               </div>
             </div>
           </div>

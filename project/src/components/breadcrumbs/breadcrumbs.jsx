@@ -1,14 +1,15 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 function Breadcrumbs() {
   return (
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">
         <li className="breadcrumbs__item">
-          <a href="film-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+          <Link to="/film/:id" className="breadcrumbs__link">The Grand Budapest Hotel</Link>
         </li>
         <li className="breadcrumbs__item">
-          <a className="breadcrumbs__link" href="/#">Add review</a>
+          <a className="breadcrumbs__link">Add review</a>
         </li>
       </ul>
     </nav>
