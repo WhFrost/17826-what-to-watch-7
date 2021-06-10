@@ -1,15 +1,16 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
-function Logo() {
+function FooterLogo() {
   return (
     <div className="logo">
-      <a className="logo__link" href="/#">
+      <Link className="logo__link logo__link--light" to="/">
         <span className="logo__letter logo__letter--1">W</span>
         <span className="logo__letter logo__letter--2">T</span>
         <span className="logo__letter logo__letter--3">W</span>
-      </a>
+      </Link>
     </div>
   );
 }
 
-export default Logo;
+export default FooterLogo;
