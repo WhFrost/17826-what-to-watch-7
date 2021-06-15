@@ -7,6 +7,13 @@ const AppRoute = {
   PLAYER: '/player/:id',
 };
 
+const COUNT_FILMS = 5;
+const COUNT_REVIEWS = 8;
+const MAX_STARS = 5;
+
 export {
-  AppRoute
+  AppRoute,
+  COUNT_FILMS,
+  COUNT_REVIEWS,
+  MAX_STARS
 };

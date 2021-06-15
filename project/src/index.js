@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
+// import {films} from './mock/films';
+// import {reviews} from './mock/reviews';
 
 const promoFilmMock = {
   title: 'The Grand Budapest Hotel',
