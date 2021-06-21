@@ -9,20 +9,23 @@ import Film from '../pages/film';
 import Player from '../pages/player';
 import AddReview from '../pages/add-review';
 import NotFound from '../pages/not-found-404';
+import FilmProp from '../prop-validation/film';
 
 function App(props) {
-  const {film} = props;
+  const {films} = props;
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <MainPage film = {film}/>
+          <MainPage
+            films = {films}
+          />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <Login />
         </Route>
         <Route exact path={AppRoute.MY_LIST}>
-          <MyList />
+          <MyList films = {films}/>
         </Route>
         <Route exact path={AppRoute.FILM}>
           <Film />
@@ -42,7 +45,7 @@ function App(props) {
 }
 
 App.propTypes = {
-  film: PropTypes.object,
+  films: PropTypes.arrayOf(PropTypes.shape(FilmProp)).isRequired,
 };
 
 export default App;
