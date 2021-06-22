@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import FilmProp from '../prop-validation/film.prop';
 import {useParams} from 'react-router-dom';
@@ -8,6 +8,11 @@ import UserBlock from '../user-block/user-block';
 import {RATING} from '../../const';
 
 function AddReview(props) {
+  const [review, setReview] = useState({
+    rating: 0,
+    comment: '',
+  });
+  console.log(review);
   const {films} = props;
   const {id} = useParams();
   const film = films.find((element) => element.id === id);
@@ -37,7 +42,12 @@ function AddReview(props) {
               {
                 RATING.map((element) => (
                   <React.Fragment key = {`star-${element}`}>
-                    <input className="rating__input" id={`star-${element}`} type="radio" name="rating" value={element} />
+                    <input className="rating__input" id={`star-${element}`} type="radio" name="rating" value={element}
+                      onChange={({target}) => {
+                        const value = Number(target.value);
+                        setReview({...review, rating: value});
+                      }}
+                    />
                     <label className="rating__label" htmlFor={`star-${element}`}>Rating {element}</label>
                   </React.Fragment>
                 ))
@@ -45,7 +55,13 @@ function AddReview(props) {
             </div>
           </div>
           <div className="add-review__text" style={{backgroundColor: 'rgba(255, 255, 255, 0.25)'}}>
-            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"></textarea>
+            <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"
+              onChange={({target}) => {
+                const textReview = target.value;
+                setReview({...review, comment: textReview});
+              }}
+            >
+            </textarea>
             <div className="add-review__submit">
               <button className="add-review__btn" type="submit">Post</button>
             </div>
