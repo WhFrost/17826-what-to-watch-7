@@ -12,7 +12,7 @@ function AddReview(props) {
     rating: 0,
     comment: '',
   });
-  console.log(review);
+
   const {films} = props;
   const {id} = useParams();
   const film = films.find((element) => element.id === id);
