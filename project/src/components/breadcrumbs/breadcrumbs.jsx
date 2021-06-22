@@ -1,12 +1,16 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import FilmProp from '../prop-validation/film.prop';
+import {Link, useParams} from 'react-router-dom';
 
-function Breadcrumbs() {
+function Breadcrumbs(props) {
+  const {film} = props;
+  const {id} = useParams();
+  const {name} = film;
   return (
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">
         <li className="breadcrumbs__item">
-          <Link to="/film/:id" className="breadcrumbs__link">The Grand Budapest Hotel</Link>
+          <Link to={`/film/${id}`} className="breadcrumbs__link">{name}</Link>
         </li>
         <li className="breadcrumbs__item">
           <a className="breadcrumbs__link">Add review</a>
@@ -15,5 +19,9 @@ function Breadcrumbs() {
     </nav>
   );
 }
+
+Breadcrumbs.propTypes = {
+  film: FilmProp.isRequired,
+};
 
 export default Breadcrumbs;

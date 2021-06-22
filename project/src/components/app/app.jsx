@@ -28,13 +28,13 @@ function App(props) {
           <MyList films = {films}/>
         </Route>
         <Route exact path={AppRoute.FILM}>
-          <Film />
+          <Film films = {films}/>
         </Route>
         <Route exact path={AppRoute.PLAYER}>
-          <Player />
+          <Player films = {films}/>
         </Route>
         <Route exact path={AppRoute.ADD_REVIEW}>
-          <AddReview />
+          <AddReview films = {films}/>
         </Route>
         <Route>
           <NotFound />

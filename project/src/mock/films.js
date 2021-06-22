@@ -1,5 +1,5 @@
 import {nanoid} from 'nanoid';
-import {getRandomInteger, getRandomItem, getFormatDuration} from '../common';
+import {getRandomInteger, getRandomItem} from '../common';
 import {COUNT_FILMS, MAX_STARS} from '../const';
 
 const NAMES = [
@@ -89,7 +89,7 @@ const generateFilm = () => {
     scoresCount: getRandomInteger(0, 500),
     director: getRandomItem(DIRECTORS),
     starring: randomStars,
-    runtime: getFormatDuration(duration),
+    runtime: duration,
     genre: getRandomItem(GENRES),
     released: getRandomInteger(1990, 2021),
     isFavorite: Boolean(getRandomInteger(0, 1)),

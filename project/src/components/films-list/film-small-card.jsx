@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import FilmProp from '../prop-validation/film.prop';
-import {AppRoute} from '../../const';
 
 function FilmSmallCard(props) {
   const {film} = props;
@@ -12,7 +11,7 @@ function FilmSmallCard(props) {
         <img src={posterImage} alt={name} width="280" height="175" />
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`${AppRoute.FILM}/:${id}`}>{name}</Link>
+        <Link className="small-film-card__link" to={`film/${id}`}>{name}</Link>
       </h3>
     </article>
   );
