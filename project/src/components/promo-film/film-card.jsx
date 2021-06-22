@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import FilmProp from '../prop-validation/film';
+import FilmProp from '../prop-validation/film.prop';
 
 function FilmCard(props) {
   const {promoFilm} = props;
@@ -45,7 +44,7 @@ function FilmCard(props) {
 }
 
 FilmCard.propTypes = {
-  promoFilm: PropTypes.shape(FilmProp).isRequired,
+  promoFilm: FilmProp.isRequired,
 };
 
 export default FilmCard;

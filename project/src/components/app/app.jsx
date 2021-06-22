@@ -9,7 +9,7 @@ import Film from '../pages/film';
 import Player from '../pages/player';
 import AddReview from '../pages/add-review';
 import NotFound from '../pages/not-found-404';
-import FilmProp from '../prop-validation/film';
+import FilmProp from '../prop-validation/film.prop';
 
 function App(props) {
   const {films} = props;
@@ -45,7 +45,7 @@ function App(props) {
 }
 
 App.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.shape(FilmProp)).isRequired,
+  films: PropTypes.arrayOf(FilmProp).isRequired,
 };
 
 export default App;

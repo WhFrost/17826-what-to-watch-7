@@ -4,7 +4,7 @@ import HeaderLogo from '../logo/header-logo';
 import UserBlock from '../user-block/user-block';
 import FilmsList from '../films-list/films-list';
 import Footer from '../footer/footer';
-import FilmProp from '../prop-validation/film';
+import FilmProp from '../prop-validation/film.prop';
 
 function MyList(props) {
   const {films} = props;
@@ -22,7 +22,7 @@ function MyList(props) {
 }
 
 MyList.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.shape(FilmProp)).isRequired,
+  films: PropTypes.arrayOf(FilmProp).isRequired,
 };
 
 export default MyList;

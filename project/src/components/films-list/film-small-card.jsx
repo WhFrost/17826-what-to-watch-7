@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import FilmProp from '../prop-validation/film';
+import FilmProp from '../prop-validation/film.prop';
 import {AppRoute} from '../../const';
 
 function FilmSmallCard(props) {
@@ -20,7 +19,7 @@ function FilmSmallCard(props) {
 }
 
 FilmSmallCard.propTypes = {
-  film: PropTypes.shape(FilmProp).isRequired,
+  film: FilmProp.isRequired,
 };
 
 export default FilmSmallCard;

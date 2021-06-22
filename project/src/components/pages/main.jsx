@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import PromoFilm from '../promo-film/promo-film';
 import Catalog from '../catalog/catalog';
 import Footer from '../footer/footer';
-import FilmProp from '../prop-validation/film';
+import FilmProp from '../prop-validation/film.prop';
 
 function MainPage(props) {
   const {films} = props;
@@ -22,7 +22,7 @@ function MainPage(props) {
 }
 
 MainPage.propTypes = {
-  films: PropTypes.arrayOf(PropTypes.shape(FilmProp)).isRequired,
+  films: PropTypes.arrayOf(FilmProp).isRequired,
 };
 
 export default MainPage;
