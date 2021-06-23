@@ -1,11 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import FilmProp from '../prop-validation/film.prop';
+import {useParams, useHistory} from 'react-router-dom';
+import {getFormatDuration} from '../../common';
 
-function Player() {
+function Player(props) {
+  const {films} = props;
+  const {id} = useParams();
+  const film = films.find((element) => element.id === id);
+  const history = useHistory();
+  const {runtime} = film;
+  const formatedRuntime = getFormatDuration(runtime);
   return (
     <div className="player">
       <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
 
-      <button type="button" className="player__exit">Exit</button>
+      <button type="button" className="player__exit"
+        onClick={() => history.goBack()}
+      >
+        Exit
+      </button>
 
       <div className="player__controls">
         <div className="player__controls-row">
@@ -17,7 +31,7 @@ function Player() {
             >Toggler
             </div>
           </div>
-          <div className="player__time-value">1:30:29</div>
+          <div className="player__time-value">{formatedRuntime}</div>
         </div>
 
         <div className="player__controls-row">
@@ -40,5 +54,9 @@ function Player() {
     </div>
   );
 }
+
+Player.propTypes = {
+  films: PropTypes.arrayOf(FilmProp).isRequired,
+};
 
 export default Player;

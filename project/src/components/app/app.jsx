@@ -9,29 +9,32 @@ import Film from '../pages/film';
 import Player from '../pages/player';
 import AddReview from '../pages/add-review';
 import NotFound from '../pages/not-found-404';
+import FilmProp from '../prop-validation/film.prop';
 
 function App(props) {
-  const {film} = props;
+  const {films} = props;
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <MainPage film = {film}/>
+          <MainPage
+            films = {films}
+          />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <Login />
         </Route>
         <Route exact path={AppRoute.MY_LIST}>
-          <MyList />
+          <MyList films = {films}/>
         </Route>
         <Route exact path={AppRoute.FILM}>
-          <Film />
+          <Film films = {films}/>
         </Route>
         <Route exact path={AppRoute.PLAYER}>
-          <Player />
+          <Player films = {films}/>
         </Route>
         <Route exact path={AppRoute.ADD_REVIEW}>
-          <AddReview />
+          <AddReview films = {films}/>
         </Route>
         <Route>
           <NotFound />
@@ -42,7 +45,7 @@ function App(props) {
 }
 
 App.propTypes = {
-  film: PropTypes.object,
+  films: PropTypes.arrayOf(FilmProp).isRequired,
 };
 
 export default App;
