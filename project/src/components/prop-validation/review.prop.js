@@ -8,5 +8,5 @@ export default PropTypes.shape({
   }).isRequired,
   rating: PropTypes.number.isRequired,
   comment: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  date: PropTypes.string.isRequired,
+  date: PropTypes.object.isRequired,
 });
