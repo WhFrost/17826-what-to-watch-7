@@ -1,13 +1,13 @@
 import React from 'react';
 import ReviewProp from '../prop-validation/review.prop';
-import {DATE_LOCAL, DATE_LOCAL_OPTIONS} from '../../const';
-import {getFormatedDate} from '../../common';
+// import {DATE_LOCAL, DATE_LOCAL_OPTIONS} from '../../const';
+// import {getFormatedDate} from '../../common';
 
 function FilmReview (props) {
   const {review} = props;
   const {user, rating, comment, date} = review;
   const {name} = user;
-  console.log(getFormatedDate(date, DATE_LOCAL, DATE_LOCAL_OPTIONS));
+  // console.log(getFormatedDate(date, DATE_LOCAL, DATE_LOCAL_OPTIONS));
 
   return (
     <div className="review">
