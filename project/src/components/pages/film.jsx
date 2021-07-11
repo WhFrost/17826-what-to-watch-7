@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FilmProp from '../prop-validation/film.prop';
+import ReviewProp from '../prop-validation/review.prop';
 import {Link, useParams, useHistory} from 'react-router-dom';
 import Header from '../header/header';
+import FilmDesk from '../film-desk/film-desk';
 import FilmList from '../films-list/films-list';
 import Footer from '../footer/footer';
 
 function Film(props) {
-  const {films} = props;
+  const {films, reviews} = props;
   const {id} = useParams();
   const history = useHistory();
   const film = films.find((element) => element.id === id);
@@ -18,11 +20,7 @@ function Film(props) {
     genre,
     released,
     backgroundColor,
-    rating,
-    scoresCount,
-    description,
-    director,
-    starring} = film;
+  } = film;
 
   return (
     <>
@@ -70,49 +68,15 @@ function Film(props) {
               <img src={posterImage} alt={name} width="218" height="327" />
             </div>
 
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className="film-nav__item film-nav__item--active">
-                    <a href="/#" className="film-nav__link">Overview</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="/#" className="film-nav__link">Details</a>
-                  </li>
-                  <li className="film-nav__item">
-                    <a href="/#" className="film-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
+            <FilmDesk film={film} reviews={reviews}/>
 
-              <div className="film-rating">
-                <div className="film-rating__score">{rating}</div>
-                <p className="film-rating__meta">
-                  <span className="film-rating__level">Very good</span>
-                  <span className="film-rating__count">{scoresCount} ratings</span>
-                </p>
-              </div>
-
-              <div className="film-card__text">
-                <p>
-                  {
-                    description.join(' ')
-                  }
-                </p>
-                <p className="film-card__director"><strong>Director: {director}</strong></p>
-                <p className="film-card__starring">
-                  <strong>Starring: {starring.join(', ')}
-                  </strong>
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList films = {films}/>
+          <FilmList films = {films} />
         </section>
         <Footer />
       </div>
@@ -122,6 +86,7 @@ function Film(props) {
 
 Film.propTypes = {
   films: PropTypes.arrayOf(FilmProp).isRequired,
+  reviews: PropTypes.arrayOf(ReviewProp).isRequired,
 };
 
 export default Film;

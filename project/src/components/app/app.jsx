@@ -10,9 +10,10 @@ import Player from '../pages/player';
 import AddReview from '../pages/add-review';
 import NotFound from '../pages/not-found-404';
 import FilmProp from '../prop-validation/film.prop';
+import ReviewProp from '../prop-validation/review.prop';
 
 function App(props) {
-  const {films} = props;
+  const {films, reviews} = props;
   return (
     <BrowserRouter>
       <Switch>
@@ -28,10 +29,10 @@ function App(props) {
           <MyList films = {films}/>
         </Route>
         <Route exact path={AppRoute.FILM}>
-          <Film films = {films}/>
+          <Film films = {films} reviews = {reviews}/>
         </Route>
         <Route exact path={AppRoute.PLAYER}>
-          <Player films = {films}/>
+          <Player films = {films} />
         </Route>
         <Route exact path={AppRoute.ADD_REVIEW}>
           <AddReview films = {films}/>
@@ -46,6 +47,7 @@ function App(props) {
 
 App.propTypes = {
   films: PropTypes.arrayOf(FilmProp).isRequired,
+  reviews: PropTypes.arrayOf(ReviewProp).isRequired,
 };
 
 export default App;
