@@ -15,7 +15,7 @@ const gernerateReview = () => {
     },
     rating: getRandomInteger(1, 100) / 10,
     comment: randomDescription,
-    date: Date(),
+    date: new Date(),
   };
 };
 const reviews = new Array(COUNT_REVIEWS).fill().map(gernerateReview);

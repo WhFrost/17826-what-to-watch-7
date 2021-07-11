@@ -18,7 +18,7 @@ const FILM_TABS = {
   REVIEWS: 'reviews',
 };
 
-const DATE_LOCAL = 'ru-RU';
+const DATE_LOCAL = 'en-EN';
 
 const DATE_LOCAL_OPTIONS = {
   day: 'numeric',

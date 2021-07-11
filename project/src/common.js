@@ -15,7 +15,7 @@ const getFormatDuration = (time) => {
 const createCapitalizedFirstLetter = (str) => str && str[0].toUpperCase() + str.slice(1);
 
 
-const getFormatedDate = (date, local, options) => date.toLocalString(local, options);
+const getFormatedDate = (date, local, options) => date.toLocaleString(local, options);
 
 export {
   getRandomInteger,

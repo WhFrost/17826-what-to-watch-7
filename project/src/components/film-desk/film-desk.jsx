@@ -18,14 +18,14 @@ function FilmDesk(props) {
 
   const getFilmInfo = (tab, movie) => {
     switch (tab) {
-      case (tab === FILM_TABS.OVERVIEW):
+      case FILM_TABS.OVERVIEW:
         return <FilmOverview film={movie} />;
-      case (tab === FILM_TABS.DETAILS):
+      case FILM_TABS.DETAILS:
         return <FilmDetails film={movie} />;
-      case (tab === FILM_TABS.REVIEWS):
+      case FILM_TABS.REVIEWS:
         return <FilmReviews reviews={reviews} />;
       default:
-        return <FilmReviews reviews={reviews} />;
+        return <FilmOverview film={movie} />;
     }
   };
 
