@@ -1,7 +1,6 @@
 import React from 'react';
 import ReviewProp from '../prop-validation/review.prop';
 import {DATE_LOCAL, DATE_LOCAL_OPTIONS} from '../../const';
-import {getFormatedDate} from '../../common';
 
 function FilmReview (props) {
   const {review} = props;
@@ -15,7 +14,7 @@ function FilmReview (props) {
 
         <footer className="review__details">
           <cite className="review__author">{name}</cite>
-          <time className="review__date" dateTime={date}>{getFormatedDate(date, DATE_LOCAL, DATE_LOCAL_OPTIONS)}</time>
+          <time className="review__date" dateTime={date}>{date.toLocaleString(DATE_LOCAL, DATE_LOCAL_OPTIONS)}</time>
         </footer>
       </blockquote>
 
