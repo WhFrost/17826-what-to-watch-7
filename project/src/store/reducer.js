@@ -16,7 +16,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.GET_GENRES:
       return {
         ...state,
-        genres: ['123'],
+        genres: [DEFAULT_GENRE, ...new Set(action.payload.reduce((acc, current) => {
+          acc.push(current.genre);
+          return acc;
+        }, []))],
       };
     case ActionType.CHANGE_GENRE:
       return {
