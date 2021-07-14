@@ -9,8 +9,6 @@ function FiltersList(props) {
   const {films, genres, getGenres} = props;
 
   useEffect(() => getGenres(films), [films]);
-  console.log(genres);
-
 
   return (
     <ul className="catalog__genres-list">

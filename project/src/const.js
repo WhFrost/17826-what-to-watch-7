@@ -7,7 +7,7 @@ const AppRoute = {
   PLAYER: '/player/:id',
 };
 
-const COUNT_FILMS = 18;
+const COUNT_FILMS = 10;
 const COUNT_REVIEWS = 8;
 const MAX_STARS = 5;
 const RATING = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
