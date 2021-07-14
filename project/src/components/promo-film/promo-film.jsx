@@ -2,6 +2,7 @@ import React from 'react';
 import Header from '../header/header';
 import FilmCard from './film-card';
 import FilmProp from '../prop-validation/film.prop';
+import {connect} from 'react-redux';
 
 function PromoFilm(props) {
   const {promoFilm} = props;
@@ -23,8 +24,13 @@ function PromoFilm(props) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  promoFilm: state.promoFilm,
+});
+
 PromoFilm.propTypes = {
   promoFilm: FilmProp.isRequired,
 };
 
-export default PromoFilm;
+export {PromoFilm};
+export default connect(mapStateToProps, null)(PromoFilm);

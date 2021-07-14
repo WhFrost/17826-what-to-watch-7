@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import MainPage from '../pages/main';
@@ -9,33 +8,28 @@ import Film from '../pages/film';
 import Player from '../pages/player';
 import AddReview from '../pages/add-review';
 import NotFound from '../pages/not-found-404';
-import FilmProp from '../prop-validation/film.prop';
-import ReviewProp from '../prop-validation/review.prop';
 
-function App(props) {
-  const {films, reviews} = props;
+function App() {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <MainPage
-            films = {films}
-          />
+          <MainPage />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <Login />
         </Route>
         <Route exact path={AppRoute.MY_LIST}>
-          <MyList films = {films}/>
+          <MyList />
         </Route>
         <Route exact path={AppRoute.FILM}>
-          <Film films = {films} reviews = {reviews}/>
+          <Film />
         </Route>
         <Route exact path={AppRoute.PLAYER}>
-          <Player films = {films} />
+          <Player />
         </Route>
         <Route exact path={AppRoute.ADD_REVIEW}>
-          <AddReview films = {films}/>
+          <AddReview />
         </Route>
         <Route>
           <NotFound />
@@ -44,10 +38,5 @@ function App(props) {
     </BrowserRouter>
   );
 }
-
-App.propTypes = {
-  films: PropTypes.arrayOf(FilmProp).isRequired,
-  reviews: PropTypes.arrayOf(ReviewProp).isRequired,
-};
 
 export default App;

@@ -4,8 +4,6 @@ import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
-import {films} from './mock/films';
-import {reviews} from './mock/reviews';
 import {reducer} from './store/reducer';
 
 const store = createStore(
@@ -16,10 +14,7 @@ const store = createStore(
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store} >
-      <App
-        films = {films}
-        reviews = {reviews}
-      />
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));
