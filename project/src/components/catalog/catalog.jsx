@@ -8,8 +8,10 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/action';
 
 function Catalog(props) {
-  const {films, filteredFilms, currentGenre, getFilteredFilms, quantityFilmsToShow} = props;
-  useEffect(() => getFilteredFilms(currentGenre), [currentGenre]);
+  const {films, filteredFilms, currentGenre, setFilteredFilms, quantityFilmsToShow} = props;
+
+  /*eslint-disable-next-line */
+  useEffect(() => setFilteredFilms(currentGenre), [currentGenre]);
 
   const filmsToShow = filteredFilms.slice(0, quantityFilmsToShow);
   return (
@@ -28,8 +30,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getFilteredFilms(genre) {
-    dispatch(ActionCreator.getFilteredFilms(genre));
+  setFilteredFilms(genre) {
+    dispatch(ActionCreator.setFilteredFilms(genre));
   },
 });
 
@@ -37,7 +39,7 @@ Catalog.propTypes = {
   films: PropTypes.arrayOf(FilmProp).isRequired,
   filteredFilms: PropTypes.arrayOf(FilmProp).isRequired,
   currentGenre: PropTypes.string.isRequired,
-  getFilteredFilms: PropTypes.func.isRequired,
+  setFilteredFilms: PropTypes.func.isRequired,
   quantityFilmsToShow: PropTypes.number.isRequired,
 };
 

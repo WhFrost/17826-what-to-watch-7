@@ -6,9 +6,10 @@ import {ActionCreator} from '../../store/action';
 import Filter from './filter';
 
 function FiltersList(props) {
-  const {films, genres, getGenres} = props;
+  const {films, genres, setGenres} = props;
 
-  useEffect(() => getGenres(films), [films]);
+  /*eslint-disable-next-line */
+  useEffect(() => setGenres(films), [films]);
 
   return (
     <ul className="catalog__genres-list">
@@ -21,15 +22,15 @@ const mapStateToProps = (state) => ({
   genres: state.genres,
 });
 const mapDispatchToProps = (dispatch) => ({
-  getGenres(films) {
-    dispatch(ActionCreator.getGenres(films));
+  setGenres(films) {
+    dispatch(ActionCreator.setGenres(films));
   },
 });
 
 FiltersList.propTypes = {
   films: PropTypes.arrayOf(FilmProp).isRequired,
   genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  getGenres: PropTypes.func.isRequired,
+  setGenres: PropTypes.func.isRequired,
 };
 
 export {FiltersList};

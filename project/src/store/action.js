@@ -1,19 +1,19 @@
 import {INC_QUANTITY_FILMS} from '../const';
 
 const ActionType = {
-  GET_FILTERED_FILMS: 'data/getFilteredFilms',
-  GET_GENRES: 'data/getGenres',
+  SET_FILTERED_FILMS: 'data/setFilteredFilms',
+  SET_GENRES: 'data/setGenres',
   CHANGE_GENRE: 'data/changeGenre',
   LOAD_MORE_FILMS: 'data/loadMoreFilms',
 };
 
 const ActionCreator ={
-  getGenres: (films) => ({
-    type: ActionType.GET_GENRES,
+  setGenres: (films) => ({
+    type: ActionType.SET_GENRES,
     payload: films,
   }),
-  getFilteredFilms: (genre) => ({
-    type: ActionType.GET_FILTERED_FILMS,
+  setFilteredFilms: (genre) => ({
+    type: ActionType.SET_FILTERED_FILMS,
     payload: genre,
   }),
   changeGenre: (genre) => ({

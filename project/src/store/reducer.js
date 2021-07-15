@@ -19,7 +19,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionType.GET_GENRES:
+    case ActionType.SET_GENRES:
       return {
         ...state,
         genres: [DEFAULT_GENRE, ...new Set(action.payload.reduce((acc, current) => {
@@ -27,7 +27,7 @@ const reducer = (state = initialState, action) => {
           return acc;
         }, []))],
       };
-    case ActionType.GET_FILTERED_FILMS:
+    case ActionType.SET_FILTERED_FILMS:
       return {
         ...state,
         filteredFilms: action.payload === DEFAULT_GENRE
