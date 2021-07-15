@@ -7,9 +7,10 @@ import Header from '../header/header';
 import FilmDesk from '../film-desk/film-desk';
 import FilmList from '../films-list/films-list';
 import Footer from '../footer/footer';
+import {connect} from 'react-redux';
 
 function Film(props) {
-  const {films, reviews} = props;
+  const {films, reviews, filteredFilms} = props;
   const {id} = useParams();
   const history = useHistory();
   const film = films.find((element) => element.id === id);
@@ -76,7 +77,7 @@ function Film(props) {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList films = {films} />
+          <FilmList films = {filteredFilms} />
         </section>
         <Footer />
       </div>
@@ -84,9 +85,17 @@ function Film(props) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  films: state.films,
+  reviews: state.reviews,
+  filteredFilms: state.filteredFilms,
+});
+
 Film.propTypes = {
   films: PropTypes.arrayOf(FilmProp).isRequired,
+  filteredFilms: PropTypes.arrayOf(FilmProp).isRequired,
   reviews: PropTypes.arrayOf(ReviewProp).isRequired,
 };
 
-export default Film;
+export {Film};
+export default connect(mapStateToProps, null)(Film);

@@ -7,7 +7,7 @@ const AppRoute = {
   PLAYER: '/player/:id',
 };
 
-const COUNT_FILMS = 5;
+const COUNT_FILMS = 10;
 const COUNT_REVIEWS = 8;
 const MAX_STARS = 5;
 const RATING = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
@@ -26,6 +26,10 @@ const DATE_LOCAL_OPTIONS = {
   year: 'numeric',
 };
 
+const DEFAULT_GENRE = 'All genres';
+const INITIAL_QUANTITY_FILMS = 8;
+const INC_QUANTITY_FILMS = 8;
+
 export {
   AppRoute,
   COUNT_FILMS,
@@ -34,5 +38,8 @@ export {
   RATING,
   FILM_TABS,
   DATE_LOCAL,
-  DATE_LOCAL_OPTIONS
+  DATE_LOCAL_OPTIONS,
+  DEFAULT_GENRE,
+  INITIAL_QUANTITY_FILMS,
+  INC_QUANTITY_FILMS
 };

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FilmProp from '../prop-validation/film.prop';
 import {useParams, useHistory} from 'react-router-dom';
 import VideoPlayer from '../video-player/video-player';
+import {connect} from 'react-redux';
 import {getFormatDuration} from '../../common';
 
 function Player(props) {
@@ -60,8 +61,13 @@ function Player(props) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
 Player.propTypes = {
   films: PropTypes.arrayOf(FilmProp).isRequired,
 };
 
-export default Player;
+export {Player};
+export default connect(mapStateToProps, null)(Player);

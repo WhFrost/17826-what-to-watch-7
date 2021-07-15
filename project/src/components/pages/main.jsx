@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import FilmProp from '../prop-validation/film.prop';
 import PromoFilm from '../promo-film/promo-film';
 import Catalog from '../catalog/catalog';
 import Footer from '../footer/footer';
-import FilmProp from '../prop-validation/film.prop';
+import {connect} from 'react-redux';
 
 function MainPage(props) {
   const {films} = props;
-  const promoFilm = films[0];
+
   return (
     <>
-      <PromoFilm promoFilm = {promoFilm}/>
+      <PromoFilm />
       <div className="page-content">
         <Catalog
           films = {films}
@@ -21,8 +22,13 @@ function MainPage(props) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
 MainPage.propTypes = {
   films: PropTypes.arrayOf(FilmProp).isRequired,
 };
 
-export default MainPage;
+export {MainPage};
+export default connect(mapStateToProps, null)(MainPage);

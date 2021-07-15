@@ -5,6 +5,7 @@ import {useParams} from 'react-router-dom';
 import HeaderLogo from '../logo/header-logo';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import UserBlock from '../user-block/user-block';
+import {connect} from 'react-redux';
 import {RATING} from '../../const';
 
 function AddReview(props) {
@@ -72,8 +73,13 @@ function AddReview(props) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  films: state.films,
+});
+
 AddReview.propTypes = {
   films: PropTypes.arrayOf(FilmProp).isRequired,
 };
 
-export default AddReview;
+export {AddReview};
+export default connect(mapStateToProps, null)(AddReview);
