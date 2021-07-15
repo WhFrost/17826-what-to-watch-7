@@ -30,6 +30,12 @@ const DEFAULT_GENRE = 'All genres';
 const INITIAL_QUANTITY_FILMS = 8;
 const INC_QUANTITY_FILMS = 8;
 
+const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
+
 export {
   AppRoute,
   COUNT_FILMS,
@@ -41,5 +47,6 @@ export {
   DATE_LOCAL_OPTIONS,
   DEFAULT_GENRE,
   INITIAL_QUANTITY_FILMS,
-  INC_QUANTITY_FILMS
+  INC_QUANTITY_FILMS,
+  AuthorizationStatus
 };
