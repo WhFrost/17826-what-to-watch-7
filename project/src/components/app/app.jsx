@@ -15,8 +15,8 @@ import LoadingSpinner from '../loading/loading';
 function App(props) {
   const {authorizationStatus, isFilmsListLoaded, isPromoFilmLoaded} = props;
 
-  if(authorizationStatus === AuthorizationStatus.UNKNOWN && (!isFilmsListLoaded && !isPromoFilmLoaded)) {
-    <LoadingSpinner />;
+  if(authorizationStatus === AuthorizationStatus.UNKNOWN || !isFilmsListLoaded || !isPromoFilmLoaded) {
+    return <LoadingSpinner />;
   }
 
   return (
