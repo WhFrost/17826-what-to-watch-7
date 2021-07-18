@@ -1,6 +1,4 @@
 import {ActionType} from './action';
-import {films} from '../mock/films';
-import {reviews} from '../mock/reviews';
 import {
   DEFAULT_GENRE,
   INITIAL_QUANTITY_FILMS,
@@ -8,15 +6,17 @@ import {
 } from '../const';
 
 const initialState = {
-  films,
-  reviews,
-  promoFilm: films[0],
+  films: [],
+  reviews: [],
+  promoFilm: {},
   genres: [],
   filteredFilms: [],
   currentGenre: DEFAULT_GENRE,
   initialQuantityFilms: INITIAL_QUANTITY_FILMS,
   quantityFilmsToShow: INITIAL_QUANTITY_FILMS,
-  AuthorizationStatus: AuthorizationStatus.UNKNOWN,
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
+  isFilmsListLoaded: false,
+  isPromoFilmLoaded: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -25,6 +25,13 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         films: action.payload,
+        isFilmsListLoaded: true,
+      };
+    case ActionType.LOAD_PROMO_FILM:
+      return {
+        ...state,
+        promoFilm: action.payload,
+        isPromoFilmLoaded: true,
       };
     case ActionType.LOAD_REVIEWS:
       return {

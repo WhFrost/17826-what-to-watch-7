@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
 import MainPage from '../pages/main';
 import Login from '../pages/login';
 import MyList from '../pages/mylist';
@@ -8,8 +10,15 @@ import Film from '../pages/film';
 import Player from '../pages/player';
 import AddReview from '../pages/add-review';
 import NotFound from '../pages/not-found-404';
+import LoadingSpinner from '../loading/loading';
 
-function App() {
+function App(props) {
+  const {authorizationStatus, isFilmsListLoaded, isPromoFilmLoaded} = props;
+
+  if(authorizationStatus === AuthorizationStatus.UNKNOWN && (!isFilmsListLoaded && !isPromoFilmLoaded)) {
+    <LoadingSpinner />;
+  }
+
   return (
     <BrowserRouter>
       <Switch>
@@ -39,4 +48,17 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+  isFilmsListLoaded: state.isFilmsListLoaded,
+  isPromoFilmLoaded: state.isPromoFilmLoaded,
+});
+
+App.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  isFilmsListLoaded: PropTypes.bool.isRequired,
+  isPromoFilmLoaded: PropTypes.bool.isRequired,
+};
+
+export {App};
+export default connect(mapStateToProps, null)(App);

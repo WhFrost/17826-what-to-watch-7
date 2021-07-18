@@ -7,10 +7,15 @@ const HttpCode = {
   UNAUTHORIZED: 401,
 };
 
-export const createAPI = (onUnauthorized) => {
+const token = localStorage.getItem('token') ?? '';
+
+const createAPI = (onUnauthorized) => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
+    headers: {
+      'x-token': token,
+    },
   });
 
   const onSuccess = (response) => response;
@@ -28,4 +33,8 @@ export const createAPI = (onUnauthorized) => {
   api.interceptors.response.use(onSuccess, onFail);
 
   return api;
+};
+
+export {
+  createAPI
 };

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 export default PropTypes.shape({
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   posterImage: PropTypes.string.isRequired,
   previewImage: PropTypes.string.isRequired,
@@ -9,7 +9,7 @@ export default PropTypes.shape({
   backgroundColor: PropTypes.string.isRequired,
   videoLink: PropTypes.string.isRequired,
   previewVideoLink: PropTypes.string.isRequired,
-  description: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  description: PropTypes.string.isRequired,
   rating: PropTypes.number.isRequired,
   scoresCount: PropTypes.number.isRequired,
   director: PropTypes.string.isRequired,

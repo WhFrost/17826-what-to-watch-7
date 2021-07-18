@@ -36,6 +36,15 @@ const AuthorizationStatus = {
   UNKNOWN: 'UNKNOWN',
 };
 
+const APIRoute = {
+  FILMS: '/films',
+  PROMO: '/promo',
+  COMMENTS: '/comments',
+  FAVORITE: '/favorite',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+};
+
 export {
   AppRoute,
   COUNT_FILMS,
@@ -48,5 +57,6 @@ export {
   DEFAULT_GENRE,
   INITIAL_QUANTITY_FILMS,
   INC_QUANTITY_FILMS,
-  AuthorizationStatus
+  AuthorizationStatus,
+  APIRoute
 };
