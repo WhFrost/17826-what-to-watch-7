@@ -29,6 +29,11 @@ const DATE_LOCAL_OPTIONS = {
 const DEFAULT_GENRE = 'All genres';
 const INITIAL_QUANTITY_FILMS = 8;
 const INC_QUANTITY_FILMS = 8;
+const minNormalRating = 3;
+const minGoodlRating = 5;
+const minVeryGoodRating = 8;
+const awesomeRating = 10;
+
 
 const AuthorizationStatus = {
   AUTH: 'AUTH',
@@ -57,6 +62,10 @@ export {
   DEFAULT_GENRE,
   INITIAL_QUANTITY_FILMS,
   INC_QUANTITY_FILMS,
+  minNormalRating,
+  minGoodlRating,
+  minVeryGoodRating,
+  awesomeRating,
   AuthorizationStatus,
   APIRoute
 };

@@ -8,9 +8,6 @@ function VideoPlayer(props) {
 
   useEffect(() => {
     isPlaying ? videoRef.current.play() : videoRef.current.pause();
-    return () => {
-      videoRef.current = null;
-    };
   });
 
   return (

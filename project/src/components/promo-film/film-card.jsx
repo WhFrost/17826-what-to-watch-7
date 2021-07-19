@@ -4,6 +4,7 @@ import FilmProp from '../prop-validation/film.prop';
 
 function FilmCard(props) {
   const {promoFilm} = props;
+
   const history = useHistory();
   const {id, posterImage, name, genre, released} = promoFilm;
   return (

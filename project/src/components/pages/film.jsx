@@ -13,7 +13,7 @@ function Film(props) {
   const {films, reviews, filteredFilms} = props;
   const {id} = useParams();
   const history = useHistory();
-  const film = films.find((element) => element.id === id);
+  const film = films.find((element) => element.id === Number(id));
   const {
     name,
     backgroundImage,

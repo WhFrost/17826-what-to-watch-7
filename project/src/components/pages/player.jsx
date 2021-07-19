@@ -4,16 +4,16 @@ import FilmProp from '../prop-validation/film.prop';
 import {useParams, useHistory} from 'react-router-dom';
 import VideoPlayer from '../video-player/video-player';
 import {connect} from 'react-redux';
-import {getFormatDuration} from '../../common';
+import {getVideoPlayerFormatDuration} from '../../common';
 
 function Player(props) {
   const [isPlaying, setIsPlaying] = useState(true);
   const {films} = props;
   const {id} = useParams();
-  const film = films.find((element) => element.id === id);
+  const film = films.find((element) => element.id === Number(id));
   const history = useHistory();
   const {name, videoLink, previewImage, runtime} = film;
-  const formatedRuntime = getFormatDuration(runtime);
+  const formatedRuntime = getVideoPlayerFormatDuration(runtime);
 
   return (
     <div className="player">
