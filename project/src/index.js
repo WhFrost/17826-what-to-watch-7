@@ -8,6 +8,7 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
 import {reducer} from './store/reducer';
 import {ActionCreator} from './store/action';
+import {redirect} from './store/middlewares/redirect';
 import {
   checkAuth,
   fetchFilmsList,
@@ -21,7 +22,10 @@ const api = createAPI(
 
 const store = createStore(
   reducer,
-  composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api))),
+  composeWithDevTools(
+    applyMiddleware(thunk.withExtraArgument(api)),
+    applyMiddleware(redirect),
+  ),
 );
 store.dispatch(checkAuth());
 store.dispatch(fetchFilmsList());

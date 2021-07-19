@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
+import PrivateRoute from '../private-route/private-route';
+import browserHistory from '../../browser-history';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import MainPage from '../pages/main';
 import Login from '../pages/login';
@@ -20,7 +22,7 @@ function App(props) {
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <MainPage />
@@ -28,18 +30,20 @@ function App(props) {
         <Route exact path={AppRoute.LOGIN}>
           <Login />
         </Route>
-        <Route exact path={AppRoute.MY_LIST}>
-          <MyList />
-        </Route>
+        <PrivateRoute exact path={AppRoute.MY_LIST}
+          render={() => <MyList />}
+        >
+        </PrivateRoute>
         <Route exact path={AppRoute.FILM}>
           <Film />
         </Route>
         <Route exact path={AppRoute.PLAYER}>
           <Player />
         </Route>
-        <Route exact path={AppRoute.ADD_REVIEW}>
-          <AddReview />
-        </Route>
+        <PrivateRoute exact path={AppRoute.ADD_REVIEW}
+          render={() => <AddReview />}
+        >
+        </PrivateRoute>
         <Route>
           <NotFound />
         </Route>

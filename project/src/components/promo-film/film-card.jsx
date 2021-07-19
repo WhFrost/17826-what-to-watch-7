@@ -1,11 +1,10 @@
 import React from 'react';
-import {useHistory} from 'react-router-dom';
 import FilmProp from '../prop-validation/film.prop';
+import browserHistory from '../../browser-history';
 
 function FilmCard(props) {
   const {promoFilm} = props;
 
-  const history = useHistory();
   const {id, posterImage, name, genre, released} = promoFilm;
   return (
     <div className="film-card__wrap">
@@ -28,7 +27,7 @@ function FilmCard(props) {
 
           <div className="film-card__buttons">
             <button className="btn btn--play film-card__button" type="button"
-              onClick={() => history.push(`/player/${id}`)}
+              onClick={() => browserHistory.push(`/player/${id}`)}
             >
               <svg viewBox="0 0 19 19" width="19" height="19">
                 <use xlinkHref="#play-s"></use>

@@ -1,17 +1,17 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import FilmProp from '../prop-validation/film.prop';
-import {useParams, useHistory} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 import VideoPlayer from '../video-player/video-player';
 import {connect} from 'react-redux';
 import {getVideoPlayerFormatDuration} from '../../common';
+import browserHistory from '../../browser-history';
 
 function Player(props) {
   const [isPlaying, setIsPlaying] = useState(true);
   const {films} = props;
   const {id} = useParams();
   const film = films.find((element) => element.id === Number(id));
-  const history = useHistory();
   const {name, videoLink, previewImage, runtime} = film;
   const formatedRuntime = getVideoPlayerFormatDuration(runtime);
 
@@ -20,7 +20,7 @@ function Player(props) {
       <VideoPlayer isPlaying={isPlaying} muted={false} src={videoLink} poster={previewImage}/>
 
       <button type="button" className="player__exit"
-        onClick={() => history.goBack()}
+        onClick={() => browserHistory.goBack()}
       >
         Exit
       </button>

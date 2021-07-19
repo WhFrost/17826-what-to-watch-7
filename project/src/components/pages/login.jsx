@@ -1,17 +1,13 @@
 import React, {useRef} from 'react';
-import {useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {login} from '../../store/api-action';
-import {AppRoute} from '../../const';
 import HeaderLogo from '../logo/header-logo';
 
 function Login(props) {
   const {onSubmit} = props;
   const loginRef = useRef();
   const passwordRef = useRef();
-
-  const history = useHistory();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -31,7 +27,7 @@ function Login(props) {
 
       <div className="sign-in user-page__content">
         <form
-          action="#"
+          action=""
           className="sign-in__form"
           onSubmit={handleSubmit}
         >
@@ -61,7 +57,6 @@ function Login(props) {
           </div>
           <div className="sign-in__submit">
             <button
-              onClick={() => history.push(AppRoute.ROOT)}
               className="sign-in__btn"
               type="submit"
             >

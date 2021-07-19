@@ -8,8 +8,10 @@ const ActionType = {
   SET_FILTERED_FILMS: 'data/setFilteredFilms',
   CHANGE_GENRE: 'data/changeGenre',
   LOAD_MORE_FILMS: 'data/loadMoreFilms',
+  RESET_COUNT_SHOWN_FILMS: 'data/resetCountShowFilms',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
+  REDIRECT_TO_ROUTE: 'navigation/redirectToRoute',
 };
 
 const ActionCreator ={
@@ -41,12 +43,19 @@ const ActionCreator ={
     type: ActionType.LOAD_MORE_FILMS,
     payload: INC_QUANTITY_FILMS,
   }),
+  resetCountShownFilms: () => ({
+    type: ActionType.RESET_COUNT_SHOWN_FILMS,
+  }),
   requireAuthorization: (status) => ({
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: status,
   }),
   logout: () => ({
     type: ActionType.LOGOUT,
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
   }),
 };
 

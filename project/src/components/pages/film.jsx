@@ -2,17 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FilmProp from '../prop-validation/film.prop';
 import ReviewProp from '../prop-validation/review.prop';
-import {Link, useParams, useHistory} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import Header from '../header/header';
 import FilmDesk from '../film-desk/film-desk';
 import FilmList from '../films-list/films-list';
 import Footer from '../footer/footer';
 import {connect} from 'react-redux';
+import browserHistory from '../../browser-history';
 
 function Film(props) {
   const {films, reviews, filteredFilms} = props;
   const {id} = useParams();
-  const history = useHistory();
   const film = films.find((element) => element.id === Number(id));
   const {
     name,
@@ -45,7 +45,7 @@ function Film(props) {
 
               <div className="film-card__buttons">
                 <button className="btn btn--play film-card__button" type="button"
-                  onClick={() => history.push(`/player/${id}`)}
+                  onClick={() => browserHistory.push(`/player/${id}`)}
                 >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
