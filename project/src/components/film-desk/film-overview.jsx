@@ -1,10 +1,11 @@
 import React from 'react';
 import FilmProp from '../prop-validation/film.prop';
 import {
-  minGoodlRating,
   minNormalRating,
+  minGoodlRating,
   minVeryGoodRating,
-  awesomeRating
+  awesomeRating,
+  TextualRating
 } from '../../const';
 
 function FilmOverview(props) {
@@ -17,18 +18,23 @@ function FilmOverview(props) {
     starring} = film;
 
   const getTextualRating = (ratingValue) => {
-    switch (ratingValue) {
-      case (ratingValue === awesomeRating):
-        return 'Awesome';
-      case (ratingValue >= minVeryGoodRating):
-        return 'Very Good';
-      case (ratingValue >= minGoodlRating):
-        return 'Good';
-      case (ratingValue >= minNormalRating):
-        return 'Normal';
-      default:
-        return 'Bad';
+    let textualRating = '';
+
+    if (ratingValue < minNormalRating) {
+      textualRating = TextualRating.BAD;
     }
+    else if (ratingValue >= minNormalRating && ratingValue < minGoodlRating) {
+      textualRating = TextualRating.NORMAL;
+    }
+    else if (ratingValue >= minGoodlRating && ratingValue < minVeryGoodRating) {
+      textualRating = TextualRating.GOOD;
+    }
+    else if (ratingValue >= minVeryGoodRating && ratingValue < awesomeRating) {
+      textualRating = TextualRating.VERY_GOOD;
+    } else {
+      textualRating = TextualRating.AWESOME;
+    }
+    return textualRating;
   };
 
   return (

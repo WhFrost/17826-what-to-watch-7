@@ -34,6 +34,14 @@ const minGoodlRating = 5;
 const minVeryGoodRating = 8;
 const awesomeRating = 10;
 
+const TextualRating = {
+  BAD: 'Bad',
+  NORMAL: 'Normal',
+  GOOD: 'Good',
+  VERY_GOOD: 'Very good',
+  AWESOME: 'Awesome',
+};
+
 
 const AuthorizationStatus = {
   AUTH: 'AUTH',
@@ -66,6 +74,7 @@ export {
   minGoodlRating,
   minVeryGoodRating,
   awesomeRating,
+  TextualRating,
   AuthorizationStatus,
   APIRoute
 };
