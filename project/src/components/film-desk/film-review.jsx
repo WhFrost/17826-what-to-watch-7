@@ -10,7 +10,7 @@ function FilmReview (props) {
   return (
     <div className="review">
       <blockquote className="review__quote">
-        <p className="review__text">{comment.join(' ')}</p>
+        <p className="review__text">{comment}</p>
 
         <footer className="review__details">
           <cite className="review__author">{name}</cite>

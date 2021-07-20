@@ -12,8 +12,8 @@ const fetchPromoFilm = () => (dispatch, _getState, api) => (
     .then(({data}) => adaptFilmToClient(data))
     .then((promoFilm) => dispatch(ActionCreator.loadPromoFilm(promoFilm)))
 );
-const fetchReviews = () => (dispatch, _getState, api) => (
-  api.get(APIRoute.COMMENTS)
+const fetchReviews = (id) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.COMMENTS}/${id}`)
     .then(({data}) => dispatch(ActionCreator.loadReviews(data)))
 );
 const checkAuth = () => (dispatch, _getState, api) => (
