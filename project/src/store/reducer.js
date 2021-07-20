@@ -10,7 +10,6 @@ const initialState = {
   reviews: [],
   promoFilm: {},
   genres: [],
-  filteredFilms: [],
   currentGenre: DEFAULT_GENRE,
   initialQuantityFilms: INITIAL_QUANTITY_FILMS,
   quantityFilmsToShow: INITIAL_QUANTITY_FILMS,
@@ -45,13 +44,6 @@ const reducer = (state = initialState, action) => {
           acc.push(current.genre);
           return acc;
         }, []))],
-      };
-    case ActionType.SET_FILTERED_FILMS:
-      return {
-        ...state,
-        filteredFilms: action.payload === DEFAULT_GENRE
-          ? state.films
-          : state.films.filter((film) => film.genre === action.payload),
       };
     case ActionType.CHANGE_GENRE:
       return {

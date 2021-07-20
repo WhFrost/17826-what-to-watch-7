@@ -1,24 +1,25 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import FiltersList from '../filters-list/filters-list';
 import FilmsList from '../films-list/films-list';
 import LoadMoreButton from '../load-more-button/load-more-button';
 import FilmProp from '../prop-validation/film.prop';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {DEFAULT_GENRE} from '../../const';
 
 function Catalog(props) {
-  const {films, filteredFilms, currentGenre, setFilteredFilms, quantityFilmsToShow} = props;
+  const {films, currentGenre, quantityFilmsToShow} = props;
 
-  /*eslint-disable-next-line */
-  useEffect(() => setFilteredFilms(currentGenre), [currentGenre]);
+  const getFilteredFilms = (movies, genre) => genre === DEFAULT_GENRE
+    ? movies = movies.slice()
+    : movies.slice().filter((movie) => movie.genre === genre);
 
-  const filmsToShow = filteredFilms.slice(0, quantityFilmsToShow);
+  const filmsToShow = getFilteredFilms(films, currentGenre).slice(0, quantityFilmsToShow);
   return (
     <section className="catalog">
       <FiltersList films={films}/>
       <FilmsList films={filmsToShow} />
-      {filteredFilms.length > quantityFilmsToShow && <LoadMoreButton />}
+      {getFilteredFilms(films, currentGenre).length > quantityFilmsToShow && <LoadMoreButton />}
     </section>
   );
 }
@@ -26,22 +27,14 @@ function Catalog(props) {
 const mapStateToProps = (state) => ({
   quantityFilmsToShow: state.quantityFilmsToShow,
   currentGenre: state.currentGenre,
-  filteredFilms: state.filteredFilms,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  setFilteredFilms(genre) {
-    dispatch(ActionCreator.setFilteredFilms(genre));
-  },
-});
 
 Catalog.propTypes = {
   films: PropTypes.arrayOf(FilmProp).isRequired,
-  filteredFilms: PropTypes.arrayOf(FilmProp).isRequired,
   currentGenre: PropTypes.string.isRequired,
-  setFilteredFilms: PropTypes.func.isRequired,
   quantityFilmsToShow: PropTypes.number.isRequired,
 };
 
 export {Catalog};
-export default connect(mapStateToProps, mapDispatchToProps)(Catalog);
+export default connect(mapStateToProps, null)(Catalog);

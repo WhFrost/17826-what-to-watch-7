@@ -5,7 +5,6 @@ const ActionType = {
   LOAD_PROMO_FILM: 'data/loadPromoFilm',
   LOAD_REVIEWS: 'data/loadReviews',
   SET_GENRES: 'data/setGenres',
-  SET_FILTERED_FILMS: 'data/setFilteredFilms',
   CHANGE_GENRE: 'data/changeGenre',
   LOAD_MORE_FILMS: 'data/loadMoreFilms',
   RESET_COUNT_SHOWN_FILMS: 'data/resetCountShowFilms',
@@ -30,10 +29,6 @@ const ActionCreator ={
   setGenres: (films) => ({
     type: ActionType.SET_GENRES,
     payload: films,
-  }),
-  setFilteredFilms: (genre) => ({
-    type: ActionType.SET_FILTERED_FILMS,
-    payload: genre,
   }),
   changeGenre: (genre) => ({
     type: ActionType.CHANGE_GENRE,
