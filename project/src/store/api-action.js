@@ -18,7 +18,8 @@ const fetchReviews = (id) => (dispatch, _getState, api) => (
 );
 const fetchSimilar = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.FILMS}/${id}/similar`)
-    .then(({data}) => dispatch(ActionCreator.loadReviews(data)))
+    .then(({data}) => data.map((film) => adaptFilmToClient(film)))
+    .then((similarFilms) => dispatch(ActionCreator.loadSimilarFilms(similarFilms)))
 );
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
@@ -42,6 +43,7 @@ export {
   fetchFilmsList,
   fetchPromoFilm,
   fetchReviews,
+  fetchSimilar,
   checkAuth,
   login,
   logout

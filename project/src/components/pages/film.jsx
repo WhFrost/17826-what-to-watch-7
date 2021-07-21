@@ -12,11 +12,10 @@ import browserHistory from '../../browser-history';
 import {fetchReviews} from '../../store/api-action';
 
 function Film(props) {
-  const {films, reviews} = props;
+  const {films, reviews, loadData} = props;
   const {id} = useParams();
 
-  useEffect(() => fetchReviews(Number(id)), [id]);
-  useEffect(() => console.log(id), [id]);
+  useEffect(() => loadData(id), [id]);
 
   const film = films.find((element) => element.id === Number(id));
   const {
@@ -95,10 +94,17 @@ const mapStateToProps = (state) => ({
   reviews: state.reviews,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  loadData(id) {
+    dispatch(fetchReviews(id));
+  },
+});
+
 Film.propTypes = {
   films: PropTypes.arrayOf(FilmProp).isRequired,
   reviews: PropTypes.arrayOf(ReviewProp).isRequired,
+  loadData: PropTypes.func.isRequired,
 };
 
 export {Film};
-export default connect(mapStateToProps, null)(Film);
+export default connect(mapStateToProps, mapDispatchToProps)(Film);
