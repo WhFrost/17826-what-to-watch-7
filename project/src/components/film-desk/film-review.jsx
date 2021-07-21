@@ -7,6 +7,8 @@ function FilmReview (props) {
   const {user, rating, comment, date} = review;
   const {name} = user;
 
+  const newDate = new Date(date);
+
   return (
     <div className="review">
       <blockquote className="review__quote">
@@ -14,7 +16,7 @@ function FilmReview (props) {
 
         <footer className="review__details">
           <cite className="review__author">{name}</cite>
-          <time className="review__date" dateTime={date}>{date.toLocaleString(DATE_LOCAL, DATE_LOCAL_OPTIONS)}</time>
+          <time className="review__date" dateTime={newDate}>{newDate.toLocaleString(DATE_LOCAL, DATE_LOCAL_OPTIONS)}</time>
         </footer>
       </blockquote>
 

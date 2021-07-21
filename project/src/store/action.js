@@ -25,7 +25,7 @@ const ActionCreator ={
     payload: promoFilm,
   }),
   loadCurrentFilm: (currentFilm) => ({
-    type: ActionType.LOAD_PROMO_FILM,
+    type: ActionType.LOAD_CURRENT_FILM,
     payload: currentFilm,
   }),
   loadReviews: (reviews) => ({

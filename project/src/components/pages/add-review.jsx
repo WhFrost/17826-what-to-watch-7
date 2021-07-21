@@ -9,15 +9,14 @@ import {connect} from 'react-redux';
 import {RATING} from '../../const';
 
 function AddReview(props) {
+  const {currentFilm} = props;
   const [review, setReview] = useState({
     rating: 0,
     comment: '',
   });
 
-  const {films} = props;
   const {id} = useParams();
-  const film = films.find((element) => element.id === id);
-  const {name, backgroundImage, backgroundColor, posterImage} = film;
+  const {name, backgroundImage, backgroundColor, posterImage} = currentFilm;
 
   return (
     <section className="film-card film-card--full" style={{backgroundColor}}>
@@ -28,7 +27,7 @@ function AddReview(props) {
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header">
           <HeaderLogo />
-          <Breadcrumbs film = {film}/>
+          <Breadcrumbs />
           <UserBlock />
         </header>
         <div className="film-card__poster film-card__poster--small">
@@ -74,11 +73,11 @@ function AddReview(props) {
 }
 
 const mapStateToProps = (state) => ({
-  films: state.films,
+  currentFilm: state.currentFilm,
 });
 
 AddReview.propTypes = {
-  films: PropTypes.arrayOf(FilmProp).isRequired,
+  currentFilm: FilmProp.isRequired,
 };
 
 export {AddReview};

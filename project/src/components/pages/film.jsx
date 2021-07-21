@@ -9,15 +9,29 @@ import FilmList from '../films-list/films-list';
 import Footer from '../footer/footer';
 import {connect} from 'react-redux';
 import browserHistory from '../../browser-history';
-import {fetchReviews} from '../../store/api-action';
+import {
+  fetchCurrentFilm,
+  fetchReviews,
+  fetchSimilar
+} from '../../store/api-action';
+import LoadingSpinner from '../loading/loading';
+import {AuthorizationStatus} from '../../const';
 
 function Film(props) {
-  const {films, reviews, loadData} = props;
+  const {
+    authorizationStatus,
+    currentFilm,
+    isCurrentFilmLoaded,
+    reviews,
+    isReviewsLoaded,
+    similarFilms,
+    isSimilarFilmsLoaded,
+    loadData} = props;
+
   const {id} = useParams();
 
   useEffect(() => loadData(id), [id]);
 
-  const film = films.find((element) => element.id === Number(id));
   const {
     name,
     backgroundImage,
@@ -25,7 +39,11 @@ function Film(props) {
     genre,
     released,
     backgroundColor,
-  } = film;
+  } = currentFilm;
+
+  if (!isCurrentFilmLoaded || !isReviewsLoaded) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <>
@@ -62,7 +80,11 @@ function Film(props) {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`/film/${id}/review`} className="btn film-card__button">Add review</Link>
+                {
+                  authorizationStatus === AuthorizationStatus.AUTH
+                    ? <Link to={`/film/${id}/review`} className="btn film-card__button">Add review</Link>
+                    : ''
+                }
               </div>
             </div>
           </div>
@@ -73,16 +95,21 @@ function Film(props) {
               <img src={posterImage} alt={name} width="218" height="327" />
             </div>
 
-            <FilmDesk film={film} reviews={reviews}/>
+            <FilmDesk film={currentFilm} reviews={reviews}/>
 
           </div>
         </div>
       </section>
       <div className="page-content">
-        <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
-          <FilmList films = {films} />
-        </section>
+        {
+          !isSimilarFilmsLoaded
+            ? <LoadingSpinner />
+            :
+            <section className="catalog catalog--like-this">
+              <h2 className="catalog__title">More like this</h2>
+              <FilmList films = {similarFilms} />
+            </section>
+        }
         <Footer />
       </div>
     </>
@@ -90,19 +117,31 @@ function Film(props) {
 }
 
 const mapStateToProps = (state) => ({
-  films: state.films,
+  authorizationStatus: state.authorizationStatus,
+  currentFilm: state.currentFilm,
+  isCurrentFilmLoaded: state.isCurrentFilmLoaded,
   reviews: state.reviews,
+  isReviewsLoaded: state.isReviewsLoaded,
+  similarFilms: state.similarFilms,
+  isSimilarFilmsLoaded: state.isSimilarFilmsLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   loadData(id) {
+    dispatch(fetchCurrentFilm(id));
     dispatch(fetchReviews(id));
+    dispatch(fetchSimilar(id));
   },
 });
 
 Film.propTypes = {
-  films: PropTypes.arrayOf(FilmProp).isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  currentFilm: FilmProp.isRequired,
+  isCurrentFilmLoaded: PropTypes.bool.isRequired,
   reviews: PropTypes.arrayOf(ReviewProp).isRequired,
+  isReviewsLoaded: PropTypes.bool.isRequired,
+  similarFilms: PropTypes.arrayOf(FilmProp).isRequired,
+  isSimilarFilmsLoaded: PropTypes.bool.isRequired,
   loadData: PropTypes.func.isRequired,
 };
 

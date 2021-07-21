@@ -1,11 +1,12 @@
 import React from 'react';
 import FilmProp from '../prop-validation/film.prop';
 import {Link, useParams} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 function Breadcrumbs(props) {
-  const {film} = props;
+  const {currentFilm} = props;
   const {id} = useParams();
-  const {name} = film;
+  const {name} = currentFilm;
   return (
     <nav className="breadcrumbs">
       <ul className="breadcrumbs__list">
@@ -13,15 +14,27 @@ function Breadcrumbs(props) {
           <Link to={`/film/${id}`} className="breadcrumbs__link">{name}</Link>
         </li>
         <li className="breadcrumbs__item">
-          <a className="breadcrumbs__link">Add review</a>
+          <a
+            href="/#"
+            className="breadcrumbs__link"
+            style={{
+              pointerEvents: 'none',
+            }}
+          >
+            Add review
+          </a>
         </li>
       </ul>
     </nav>
   );
 }
+const mapStateToProps = (state) => ({
+  currentFilm: state.currentFilm,
+});
 
 Breadcrumbs.propTypes = {
-  film: FilmProp.isRequired,
+  currentFilm: FilmProp.isRequired,
 };
 
-export default Breadcrumbs;
+export {Breadcrumbs};
+export default connect(mapStateToProps, null)(Breadcrumbs);

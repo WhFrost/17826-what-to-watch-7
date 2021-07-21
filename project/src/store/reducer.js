@@ -9,8 +9,11 @@ const initialState = {
   films: [],
   promoFilm: {},
   currentFilm: {},
+  isCurrentFilmLoaded: false,
   reviews: [],
+  isReviewsLoaded: false,
   similarFilms: [],
+  isSimilarFilmsLoaded: false,
   genres: [],
   currentGenre: DEFAULT_GENRE,
   initialQuantityFilms: INITIAL_QUANTITY_FILMS,
@@ -38,11 +41,19 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         currentFilm: action.payload,
+        isCurrentFilmLoaded: true,
       };
     case ActionType.LOAD_REVIEWS:
       return {
         ...state,
         reviews: action.payload,
+        isReviewsLoaded: true,
+      };
+    case ActionType.LOAD_SIMILAR_FILMS:
+      return {
+        ...state,
+        similarFilms: action.payload,
+        isSimilarFilmsLoaded: true,
       };
     case ActionType.SET_GENRES:
       return {

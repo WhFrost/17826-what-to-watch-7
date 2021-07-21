@@ -5,6 +5,7 @@ const AppRoute = {
   FILM: '/film/:id',
   ADD_REVIEW: '/film/:id/review',
   PLAYER: '/player/:id',
+  NOT_FOUND: '/404',
 };
 
 const COUNT_FILMS = 10;
