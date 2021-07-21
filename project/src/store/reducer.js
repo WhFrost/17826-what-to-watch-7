@@ -7,8 +7,10 @@ import {
 
 const initialState = {
   films: [],
-  reviews: [],
   promoFilm: {},
+  currentFilm: {},
+  reviews: [],
+  similarFilms: [],
   genres: [],
   currentGenre: DEFAULT_GENRE,
   initialQuantityFilms: INITIAL_QUANTITY_FILMS,
@@ -31,6 +33,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         promoFilm: action.payload,
         isPromoFilmLoaded: true,
+      };
+    case ActionType.LOAD_CURRENT_FILM:
+      return {
+        ...state,
+        currentFilm: action.payload,
       };
     case ActionType.LOAD_REVIEWS:
       return {

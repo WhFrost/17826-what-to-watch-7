@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import FilmProp from '../prop-validation/film.prop';
 import ReviewProp from '../prop-validation/review.prop';
@@ -9,10 +9,15 @@ import FilmList from '../films-list/films-list';
 import Footer from '../footer/footer';
 import {connect} from 'react-redux';
 import browserHistory from '../../browser-history';
+import {fetchReviews} from '../../store/api-action';
 
 function Film(props) {
-  const {films, reviews, filteredFilms} = props;
+  const {films, reviews} = props;
   const {id} = useParams();
+
+  useEffect(() => fetchReviews(Number(id)), [id]);
+  useEffect(() => console.log(id), [id]);
+
   const film = films.find((element) => element.id === Number(id));
   const {
     name,
@@ -77,7 +82,7 @@ function Film(props) {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList films = {filteredFilms} />
+          <FilmList films = {films} />
         </section>
         <Footer />
       </div>
@@ -88,12 +93,10 @@ function Film(props) {
 const mapStateToProps = (state) => ({
   films: state.films,
   reviews: state.reviews,
-  filteredFilms: state.filteredFilms,
 });
 
 Film.propTypes = {
   films: PropTypes.arrayOf(FilmProp).isRequired,
-  filteredFilms: PropTypes.arrayOf(FilmProp).isRequired,
   reviews: PropTypes.arrayOf(ReviewProp).isRequired,
 };
 

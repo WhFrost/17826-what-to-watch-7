@@ -3,7 +3,9 @@ import {INC_QUANTITY_FILMS} from '../const';
 const ActionType = {
   LOAD_FILMS: 'data/loadFilms',
   LOAD_PROMO_FILM: 'data/loadPromoFilm',
+  LOAD_CURRENT_FILM: 'data/loadCurrentFilm',
   LOAD_REVIEWS: 'data/loadReviews',
+  LOAD_SIMILAR_FILMS: 'data/loadSimilarFilms',
   SET_GENRES: 'data/setGenres',
   CHANGE_GENRE: 'data/changeGenre',
   LOAD_MORE_FILMS: 'data/loadMoreFilms',
@@ -22,9 +24,17 @@ const ActionCreator ={
     type: ActionType.LOAD_PROMO_FILM,
     payload: promoFilm,
   }),
+  loadCurrentFilm: (currentFilm) => ({
+    type: ActionType.LOAD_PROMO_FILM,
+    payload: currentFilm,
+  }),
   loadReviews: (reviews) => ({
     type: ActionType.LOAD_REVIEWS,
     payload: reviews,
+  }),
+  loadSimilarFilms: (similarFilms) => ({
+    type: ActionType.LOAD_SIMILAR_FILMS,
+    payload: similarFilms,
   }),
   setGenres: (films) => ({
     type: ActionType.SET_GENRES,
