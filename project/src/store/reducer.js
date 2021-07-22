@@ -49,6 +49,11 @@ const reducer = (state = initialState, action) => {
         reviews: action.payload,
         isReviewsLoaded: true,
       };
+    case ActionType.ADD_REVIEW:
+      return {
+        ...state,
+        reviews: action.payload,
+      };
     case ActionType.LOAD_SIMILAR_FILMS:
       return {
         ...state,

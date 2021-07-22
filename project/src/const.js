@@ -43,6 +43,8 @@ const TextualRating = {
   AWESOME: 'Awesome',
 };
 
+const MIN_LENGTH_REVIEW = 50;
+const MAX_LENGTH_REVIEW = 400;
 
 const AuthorizationStatus = {
   AUTH: 'AUTH',
@@ -76,6 +78,8 @@ export {
   minVeryGoodRating,
   awesomeRating,
   TextualRating,
+  MIN_LENGTH_REVIEW,
+  MAX_LENGTH_REVIEW,
   AuthorizationStatus,
   APIRoute
 };

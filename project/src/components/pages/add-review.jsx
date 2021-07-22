@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import FilmProp from '../prop-validation/film.prop';
 import {useParams} from 'react-router-dom';
@@ -7,16 +7,27 @@ import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import UserBlock from '../user-block/user-block';
 import {connect} from 'react-redux';
 import {RATING} from '../../const';
+import {addReview} from '../../store/api-action';
 
 function AddReview(props) {
-  const {currentFilm} = props;
+  const {currentFilm, onSubmit} = props;
   const [review, setReview] = useState({
     rating: 0,
     comment: '',
   });
+  const [disabledForm, setDisabledForm] = useState(false);
+
+  console.log(review);
 
   const {id} = useParams();
   const {name, backgroundImage, backgroundColor, posterImage} = currentFilm;
+
+  useEffect(() => {
+    if (review.rating === 0) {
+      setDisabledForm(true);
+    }
+    onSubmit(id, review);
+  }, []);
 
   return (
     <section className="film-card film-card--full" style={{backgroundColor}}>
@@ -36,7 +47,11 @@ function AddReview(props) {
       </div>
 
       <div className="add-review">
-        <form action="#" className="add-review__form">
+        <form
+          action="#"
+          className="add-review__form"
+          onSubmit={onSubmit}
+        >
           <div className="rating">
             <div className="rating__stars">
               {
@@ -63,7 +78,13 @@ function AddReview(props) {
             >
             </textarea>
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit">Post</button>
+              <button
+                className="add-review__btn"
+                type="submit"
+                disabled = {disabledForm}
+              >
+                Post
+              </button>
             </div>
           </div>
         </form>
@@ -76,9 +97,17 @@ const mapStateToProps = (state) => ({
   currentFilm: state.currentFilm,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit(id, review) {
+    dispatch(addReview(id, review));
+  },
+});
+
 AddReview.propTypes = {
   currentFilm: FilmProp.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  disabledForm: PropTypes.bool.isRequired,
 };
 
 export {AddReview};
-export default connect(mapStateToProps, null)(AddReview);
+export default connect(mapStateToProps, mapDispatchToProps)(AddReview);

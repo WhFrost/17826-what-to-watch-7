@@ -5,6 +5,7 @@ const ActionType = {
   LOAD_PROMO_FILM: 'data/loadPromoFilm',
   LOAD_CURRENT_FILM: 'data/loadCurrentFilm',
   LOAD_REVIEWS: 'data/loadReviews',
+  ADD_REVIEW: 'data/addReview',
   LOAD_SIMILAR_FILMS: 'data/loadSimilarFilms',
   SET_GENRES: 'data/setGenres',
   CHANGE_GENRE: 'data/changeGenre',
@@ -31,6 +32,10 @@ const ActionCreator ={
   loadReviews: (reviews) => ({
     type: ActionType.LOAD_REVIEWS,
     payload: reviews,
+  }),
+  addReview: (review) => ({
+    type: ActionType.ADD_REVIEW,
+    payload: review,
   }),
   loadSimilarFilms: (similarFilms) => ({
     type: ActionType.LOAD_SIMILAR_FILMS,

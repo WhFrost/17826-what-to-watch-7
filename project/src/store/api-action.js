@@ -27,6 +27,12 @@ const fetchSimilar = (id) => (dispatch, _getState, api) => (
     .then(({data}) => data.map((film) => adaptFilmToClient(film)))
     .then((similarFilms) => dispatch(ActionCreator.loadSimilarFilms(similarFilms)))
 );
+const addReview = (id, review) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.COMMENTS}/${id}`, review)
+    .then(({data}) => dispatch(ActionCreator.addReview(data)))
+    .then(() => dispatch(ActionCreator.redirectToRoute(`${AppRoute.FILMS}/${id}`)))
+    .catch(() => {})
+);
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
@@ -38,7 +44,6 @@ const login = ({login: email, password}) => (dispatch, _getState, api) => (
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.ROOT)))
 );
-
 const logout = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)
     .then(() => localStorage.removeItem('token'))
@@ -50,6 +55,7 @@ export {
   fetchPromoFilm,
   fetchCurrentFilm,
   fetchReviews,
+  addReview,
   fetchSimilar,
   checkAuth,
   login,
