@@ -29,9 +29,7 @@ const fetchSimilar = (id) => (dispatch, _getState, api) => (
 );
 const addReview = (id, review) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.COMMENTS}/${id}`, review)
-    .then(({data}) => dispatch(ActionCreator.addReview(data)))
-    .then(() => dispatch(ActionCreator.redirectToRoute(`${AppRoute.FILMS}/${id}`)))
-    .catch(() => {})
+    .then(() => dispatch(ActionCreator.redirectToRoute(`${APIRoute.FILM}/${id}`)))
 );
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)

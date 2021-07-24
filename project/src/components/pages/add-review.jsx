@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import FilmProp from '../prop-validation/film.prop';
 import {useParams} from 'react-router-dom';
@@ -6,7 +6,7 @@ import HeaderLogo from '../logo/header-logo';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import UserBlock from '../user-block/user-block';
 import {connect} from 'react-redux';
-import {RATING} from '../../const';
+import {RATING, MIN_LENGTH_REVIEW, MAX_LENGTH_REVIEW} from '../../const';
 import {addReview} from '../../store/api-action';
 
 function AddReview(props) {
@@ -15,19 +15,21 @@ function AddReview(props) {
     rating: 0,
     comment: '',
   });
-  const [disabledForm, setDisabledForm] = useState(false);
 
-  console.log(review);
+  const checkValidForm = () => {
+    if (review.rating === 0 || (review.comment.length <= MIN_LENGTH_REVIEW || review.comment.length >= MAX_LENGTH_REVIEW)) {
+      return true;
+    }
+    return false;
+  };
 
   const {id} = useParams();
   const {name, backgroundImage, backgroundColor, posterImage} = currentFilm;
 
-  useEffect(() => {
-    if (review.rating === 0) {
-      setDisabledForm(true);
-    }
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
     onSubmit(id, review);
-  }, []);
+  };
 
   return (
     <section className="film-card film-card--full" style={{backgroundColor}}>
@@ -50,7 +52,7 @@ function AddReview(props) {
         <form
           action="#"
           className="add-review__form"
-          onSubmit={onSubmit}
+          onSubmit={handleSubmit}
         >
           <div className="rating">
             <div className="rating__stars">
@@ -81,7 +83,7 @@ function AddReview(props) {
               <button
                 className="add-review__btn"
                 type="submit"
-                disabled = {disabledForm}
+                disabled = {checkValidForm()}
               >
                 Post
               </button>
@@ -106,7 +108,6 @@ const mapDispatchToProps = (dispatch) => ({
 AddReview.propTypes = {
   currentFilm: FilmProp.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  disabledForm: PropTypes.bool.isRequired,
 };
 
 export {AddReview};
