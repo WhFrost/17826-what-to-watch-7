@@ -62,6 +62,8 @@ const APIRoute = {
   LOGOUT: '/logout',
 };
 
+const LOGIN_ERROR_MESSAGE = 'Login/Password incorrected. Please try again.';
+
 export {
   AppRoute,
   COUNT_FILMS,
@@ -82,5 +84,6 @@ export {
   MIN_LENGTH_REVIEW,
   MAX_LENGTH_REVIEW,
   AuthorizationStatus,
-  APIRoute
+  APIRoute,
+  LOGIN_ERROR_MESSAGE
 };

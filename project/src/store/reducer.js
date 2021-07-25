@@ -21,6 +21,7 @@ const initialState = {
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   isFilmsListLoaded: false,
   isPromoFilmLoaded: false,
+  isLoginIncorrected: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -92,6 +93,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         authorizationStatus: AuthorizationStatus.NO_AUTH,
+      };
+    case ActionType.SET_LOGIN_ERROR:
+      return {
+        ...state,
+        isLoginIncorrected: true,
       };
     default:
       return state;

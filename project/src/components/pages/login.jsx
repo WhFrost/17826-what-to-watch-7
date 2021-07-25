@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {login} from '../../store/api-action';
 import HeaderLogo from '../logo/header-logo';
+import LoginError from '../login-error/login-error';
 
 function Login(props) {
   const {onSubmit} = props;
@@ -64,6 +65,7 @@ function Login(props) {
             </button>
           </div>
         </form>
+        <LoginError />
       </div>
     </div>
   );

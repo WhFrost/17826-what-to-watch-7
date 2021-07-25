@@ -41,6 +41,9 @@ const login = ({login: email, password}) => (dispatch, _getState, api) => (
     .then(({data}) => localStorage.setItem('token', data.token))
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.ROOT)))
+    .catch(() => {
+      dispatch(ActionCreator.setLoginError());
+    })
 );
 const logout = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)

@@ -13,6 +13,7 @@ const ActionType = {
   RESET_COUNT_SHOWN_FILMS: 'data/resetCountShowFilms',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
+  SET_LOGIN_ERROR: 'user/loginIncorrected',
   REDIRECT_TO_ROUTE: 'navigation/redirectToRoute',
 };
 
@@ -62,6 +63,9 @@ const ActionCreator ={
   }),
   logout: () => ({
     type: ActionType.LOGOUT,
+  }),
+  setLoginError: () => ({
+    type: ActionType.SET_LOGIN_ERROR,
   }),
   redirectToRoute: (url) => ({
     type: ActionType.REDIRECT_TO_ROUTE,

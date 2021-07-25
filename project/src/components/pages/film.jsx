@@ -30,6 +30,7 @@ function Film(props) {
 
   const {id} = useParams();
 
+  /*eslint-disable-next-line */
   useEffect(() => loadData(id), [id]);
 
   const {
