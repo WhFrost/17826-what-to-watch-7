@@ -27,7 +27,8 @@ function Film(props) {
     isReviewsLoaded,
     similarFilms,
     isSimilarFilmsLoaded,
-    loadData,
+    loadFilms,
+    loadReviews,
     resetFilm} = props;
 
   const {id} = useParams();
@@ -35,10 +36,12 @@ function Film(props) {
   useEffect(() => {
     if (currentFilm.id !== Number(id)) {
       resetFilm();
-      loadData(id);
+      loadFilms(id);
     }
     return currentFilm;
   }, [id]);
+
+  useEffect(() => loadReviews(id), [id]);
 
   const {
     name,
@@ -138,10 +141,12 @@ const mapDispatchToProps = (dispatch) => ({
   resetFilm() {
     dispatch(ActionCreator.resetCurrentFilm());
   },
-  loadData(id) {
+  loadFilms(id) {
     dispatch(fetchCurrentFilm(id));
-    dispatch(fetchReviews(id));
     dispatch(fetchSimilar(id));
+  },
+  loadReviews(id) {
+    dispatch(fetchReviews(id));
   },
 });
 
@@ -153,7 +158,8 @@ Film.propTypes = {
   isReviewsLoaded: PropTypes.bool.isRequired,
   similarFilms: PropTypes.arrayOf(FilmProp).isRequired,
   isSimilarFilmsLoaded: PropTypes.bool.isRequired,
-  loadData: PropTypes.func.isRequired,
+  loadFilms: PropTypes.func.isRequired,
+  loadReviews: PropTypes.func.isRequired,
   resetFilm: PropTypes.func.isRequired,
 };
 
