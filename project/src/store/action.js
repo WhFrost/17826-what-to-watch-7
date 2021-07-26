@@ -4,6 +4,7 @@ const ActionType = {
   LOAD_FILMS: 'data/loadFilms',
   LOAD_PROMO_FILM: 'data/loadPromoFilm',
   LOAD_CURRENT_FILM: 'data/loadCurrentFilm',
+  RESET_CURRENT_FILM: 'data/resetCurrentFilm',
   LOAD_REVIEWS: 'data/loadReviews',
   ADD_REVIEW: 'data/addReview',
   LOAD_SIMILAR_FILMS: 'data/loadSimilarFilms',
@@ -29,6 +30,9 @@ const ActionCreator ={
   loadCurrentFilm: (currentFilm) => ({
     type: ActionType.LOAD_CURRENT_FILM,
     payload: currentFilm,
+  }),
+  resetCurrentFilm: () => ({
+    type: ActionType.RESET_CURRENT_FILM,
   }),
   loadReviews: (reviews) => ({
     type: ActionType.LOAD_REVIEWS,

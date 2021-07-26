@@ -8,7 +8,25 @@ import {
 const initialState = {
   films: [],
   promoFilm: {},
-  currentFilm: {},
+  currentFilm: {
+    id: 0,
+    name: '',
+    posterImage: '',
+    previewImage: '',
+    backgroundImage: '',
+    backgroundColor: '',
+    videoLink: '',
+    previewVideoLink: '',
+    description: '',
+    rating: 0,
+    scoresCount: 0,
+    director: '',
+    starring: [],
+    runtime: 0,
+    genre: '',
+    released: 0,
+    isFavorite: false,
+  },
   isCurrentFilmLoaded: false,
   reviews: [],
   isReviewsLoaded: false,
@@ -43,6 +61,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         currentFilm: action.payload,
         isCurrentFilmLoaded: true,
+      };
+    case ActionType.RESET_CURRENT_FILM:
+      return {
+        ...state,
+        currentFilm: initialState.currentFilm,
+        isCurrentFilmLoaded: false,
       };
     case ActionType.LOAD_REVIEWS:
       return {

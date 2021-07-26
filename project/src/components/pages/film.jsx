@@ -14,6 +14,7 @@ import {
   fetchReviews,
   fetchSimilar
 } from '../../store/api-action';
+import {ActionCreator} from '../../store/action';
 import LoadingSpinner from '../loading/loading';
 import {AuthorizationStatus} from '../../const';
 
@@ -26,12 +27,18 @@ function Film(props) {
     isReviewsLoaded,
     similarFilms,
     isSimilarFilmsLoaded,
-    loadData} = props;
+    loadData,
+    resetFilm} = props;
 
   const {id} = useParams();
 
-  /*eslint-disable-next-line */
-  useEffect(() => loadData(id), [id]);
+  useEffect(() => {
+    if (currentFilm.id !== Number(id)) {
+      resetFilm();
+      loadData(id);
+    }
+    return currentFilm;
+  }, [id]);
 
   const {
     name,
@@ -128,6 +135,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  resetFilm() {
+    dispatch(ActionCreator.resetCurrentFilm());
+  },
   loadData(id) {
     dispatch(fetchCurrentFilm(id));
     dispatch(fetchReviews(id));
@@ -144,6 +154,7 @@ Film.propTypes = {
   similarFilms: PropTypes.arrayOf(FilmProp).isRequired,
   isSimilarFilmsLoaded: PropTypes.bool.isRequired,
   loadData: PropTypes.func.isRequired,
+  resetFilm: PropTypes.func.isRequired,
 };
 
 export {Film};
