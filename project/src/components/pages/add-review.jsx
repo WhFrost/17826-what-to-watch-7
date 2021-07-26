@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import FilmProp from '../prop-validation/film.prop';
 import {useParams} from 'react-router-dom';
@@ -8,13 +8,25 @@ import UserBlock from '../user-block/user-block';
 import {connect} from 'react-redux';
 import {RATING, MIN_LENGTH_REVIEW, MAX_LENGTH_REVIEW} from '../../const';
 import {addReview} from '../../store/api-action';
+import {fetchCurrentFilm} from '../../store/api-action';
+import {ActionCreator} from '../../store/action';
 
 function AddReview(props) {
-  const {currentFilm, onSubmit} = props;
+  const {currentFilm, resetFilm, loadFilms, onSubmit} = props;
   const [review, setReview] = useState({
     rating: 0,
     comment: '',
   });
+
+  const {id} = useParams();
+
+  useEffect(() => {
+    if (currentFilm.id !== Number(id)) {
+      resetFilm();
+      loadFilms(id);
+    }
+    return currentFilm;
+  }, [id]);
 
   const checkValidForm = () => {
     if (review.rating === 0 || (review.comment.length <= MIN_LENGTH_REVIEW || review.comment.length >= MAX_LENGTH_REVIEW)) {
@@ -23,7 +35,6 @@ function AddReview(props) {
     return false;
   };
 
-  const {id} = useParams();
   const {name, backgroundImage, backgroundColor, posterImage} = currentFilm;
 
   const handleSubmit = (evt) => {
@@ -100,6 +111,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  resetFilm() {
+    dispatch(ActionCreator.resetCurrentFilm());
+  },
+  loadFilms(id) {
+    dispatch(fetchCurrentFilm(id));
+  },
   onSubmit(id, review) {
     dispatch(addReview(id, review));
   },
@@ -108,6 +125,8 @@ const mapDispatchToProps = (dispatch) => ({
 AddReview.propTypes = {
   currentFilm: FilmProp.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  loadFilms: PropTypes.func.isRequired,
+  resetFilm: PropTypes.func.isRequired,
 };
 
 export {AddReview};
