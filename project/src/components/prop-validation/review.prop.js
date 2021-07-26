@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 
 export default PropTypes.shape({
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   user: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   }).isRequired,
   rating: PropTypes.number.isRequired,
-  comment: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  date: PropTypes.object.isRequired,
+  comment: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
 });

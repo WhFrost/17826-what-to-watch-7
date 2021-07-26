@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import FilmProp from '../prop-validation/film.prop';
 import {useParams} from 'react-router-dom';
@@ -6,18 +6,41 @@ import HeaderLogo from '../logo/header-logo';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import UserBlock from '../user-block/user-block';
 import {connect} from 'react-redux';
-import {RATING} from '../../const';
+import {RATING, MIN_LENGTH_REVIEW, MAX_LENGTH_REVIEW} from '../../const';
+import {addReview} from '../../store/api-action';
+import {fetchCurrentFilm} from '../../store/api-action';
+import {ActionCreator} from '../../store/action';
 
 function AddReview(props) {
+  const {currentFilm, resetFilm, loadFilms, onSubmit} = props;
   const [review, setReview] = useState({
     rating: 0,
     comment: '',
   });
 
-  const {films} = props;
   const {id} = useParams();
-  const film = films.find((element) => element.id === id);
-  const {name, backgroundImage, backgroundColor, posterImage} = film;
+
+  useEffect(() => {
+    if (currentFilm.id !== Number(id)) {
+      resetFilm();
+      loadFilms(id);
+    }
+    return currentFilm;
+  }, [id]);
+
+  const checkValidForm = () => {
+    if (review.rating === 0 || (review.comment.length <= MIN_LENGTH_REVIEW || review.comment.length >= MAX_LENGTH_REVIEW)) {
+      return true;
+    }
+    return false;
+  };
+
+  const {name, backgroundImage, backgroundColor, posterImage} = currentFilm;
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    onSubmit(id, review);
+  };
 
   return (
     <section className="film-card film-card--full" style={{backgroundColor}}>
@@ -28,7 +51,7 @@ function AddReview(props) {
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header">
           <HeaderLogo />
-          <Breadcrumbs film = {film}/>
+          <Breadcrumbs />
           <UserBlock />
         </header>
         <div className="film-card__poster film-card__poster--small">
@@ -37,7 +60,11 @@ function AddReview(props) {
       </div>
 
       <div className="add-review">
-        <form action="#" className="add-review__form">
+        <form
+          action="#"
+          className="add-review__form"
+          onSubmit={handleSubmit}
+        >
           <div className="rating">
             <div className="rating__stars">
               {
@@ -64,7 +91,13 @@ function AddReview(props) {
             >
             </textarea>
             <div className="add-review__submit">
-              <button className="add-review__btn" type="submit">Post</button>
+              <button
+                className="add-review__btn"
+                type="submit"
+                disabled = {checkValidForm()}
+              >
+                Post
+              </button>
             </div>
           </div>
         </form>
@@ -74,12 +107,27 @@ function AddReview(props) {
 }
 
 const mapStateToProps = (state) => ({
-  films: state.films,
+  currentFilm: state.currentFilm,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  resetFilm() {
+    dispatch(ActionCreator.resetCurrentFilm());
+  },
+  loadFilms(id) {
+    dispatch(fetchCurrentFilm(id));
+  },
+  onSubmit(id, review) {
+    dispatch(addReview(id, review));
+  },
 });
 
 AddReview.propTypes = {
-  films: PropTypes.arrayOf(FilmProp).isRequired,
+  currentFilm: FilmProp.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  loadFilms: PropTypes.func.isRequired,
+  resetFilm: PropTypes.func.isRequired,
 };
 
 export {AddReview};
-export default connect(mapStateToProps, null)(AddReview);
+export default connect(mapStateToProps, mapDispatchToProps)(AddReview);

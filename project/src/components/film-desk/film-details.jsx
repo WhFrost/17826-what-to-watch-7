@@ -1,5 +1,6 @@
 import React from 'react';
 import FilmProp from '../prop-validation/film.prop';
+import {getFilmFormatDuration} from '../../common';
 
 function FilmDetails(props) {
   const {film} = props;
@@ -32,7 +33,7 @@ function FilmDetails(props) {
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{runtime} 1h 39m</span>
+          <span className="film-card__details-value">{getFilmFormatDuration(runtime)}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>

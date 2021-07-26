@@ -5,16 +5,17 @@ import FilmReview from './film-review';
 
 function FilmReviews(props) {
   const {reviews} = props;
-  const firstCol = reviews.slice(0, reviews.length/2);
-  const secondCol = reviews.slice(reviews.length/2, reviews.length);
+
+  const oddReviews = reviews.slice().filter((review) => review.id % 2 !== 0);
+  const evenReviews = reviews.slice().filter((review) => review.id % 2 === 0);
 
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
-        {firstCol.map((review) => <FilmReview key={review.id} review={review} />)}
+        {oddReviews.map((review) => <FilmReview key={review.id} review={review} />)}
       </div>
       <div className="film-card__reviews-col">
-        {secondCol.map((review) => <FilmReview key={review.id} review={review} />)}
+        {evenReviews.map((review) => <FilmReview key={review.id} review={review} />)}
       </div>
     </div>
   );
