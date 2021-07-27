@@ -4,7 +4,7 @@ import {login} from '../../store/api-action';
 import HeaderLogo from '../logo/header-logo';
 import LoginError from '../login-error/login-error';
 
-function Login(props) {
+function Login() {
   const loginRef = useRef();
   const passwordRef = useRef();
   const dispatch = useDispatch();
