@@ -81,5 +81,5 @@ Login.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-export {Login};
+
 export default connect(null, mapDispatchToProps)(Login);
