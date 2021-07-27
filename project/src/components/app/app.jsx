@@ -1,6 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
+import {getAuthorizationStatus} from '../../store/user/selectors';
+import {getIsFilmsLoaded, getIsPromoFilmLoaded} from '../../store/data/selectors';
 import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from '../../browser-history';
@@ -14,8 +15,10 @@ import AddReview from '../pages/add-review';
 import NotFound from '../pages/not-found-404';
 import LoadingSpinner from '../loading/loading';
 
-function App(props) {
-  const {authorizationStatus, isFilmsListLoaded, isPromoFilmLoaded} = props;
+function App() {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const isFilmsListLoaded = useSelector(getIsFilmsLoaded);
+  const isPromoFilmLoaded = useSelector(getIsPromoFilmLoaded);
 
   if(authorizationStatus === AuthorizationStatus.UNKNOWN || !isFilmsListLoaded || !isPromoFilmLoaded) {
     return <LoadingSpinner />;
@@ -52,17 +55,4 @@ function App(props) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  isFilmsListLoaded: state.isFilmsListLoaded,
-  isPromoFilmLoaded: state.isPromoFilmLoaded,
-});
-
-App.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  isFilmsListLoaded: PropTypes.bool.isRequired,
-  isPromoFilmLoaded: PropTypes.bool.isRequired,
-};
-
-export {App};
-export default connect(mapStateToProps, null)(App);
+export default App;

@@ -1,31 +1,32 @@
 import React, {useState, useEffect} from 'react';
-import PropTypes from 'prop-types';
-import FilmProp from '../prop-validation/film.prop';
 import {useParams} from 'react-router-dom';
 import HeaderLogo from '../logo/header-logo';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import UserBlock from '../user-block/user-block';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {getCurrentFilm} from '../../store/currentFilm/selectors';
 import {RATING, MIN_LENGTH_REVIEW, MAX_LENGTH_REVIEW} from '../../const';
 import {addReview} from '../../store/api-action';
 import {fetchCurrentFilm} from '../../store/api-action';
-import {ActionCreator} from '../../store/action';
+import {resetCurrentFilm} from '../../store/action';
 
-function AddReview(props) {
-  const {currentFilm, resetFilm, loadFilms, onSubmit} = props;
+function AddReview() {
+  const currentFilm = useSelector(getCurrentFilm);
   const [review, setReview] = useState({
     rating: 0,
     comment: '',
   });
+  const dispatch = useDispatch();
 
   const {id} = useParams();
 
   useEffect(() => {
     if (currentFilm.id !== Number(id)) {
-      resetFilm();
-      loadFilms(id);
+      dispatch(resetCurrentFilm());
+      dispatch(fetchCurrentFilm(id));
     }
     return currentFilm;
+    /*eslint-disable-next-line */
   }, [id]);
 
   const checkValidForm = () => {
@@ -39,7 +40,7 @@ function AddReview(props) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    onSubmit(id, review);
+    dispatch(addReview(id, review));
   };
 
   return (
@@ -106,28 +107,4 @@ function AddReview(props) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  currentFilm: state.currentFilm,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  resetFilm() {
-    dispatch(ActionCreator.resetCurrentFilm());
-  },
-  loadFilms(id) {
-    dispatch(fetchCurrentFilm(id));
-  },
-  onSubmit(id, review) {
-    dispatch(addReview(id, review));
-  },
-});
-
-AddReview.propTypes = {
-  currentFilm: FilmProp.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  loadFilms: PropTypes.func.isRequired,
-  resetFilm: PropTypes.func.isRequired,
-};
-
-export {AddReview};
-export default connect(mapStateToProps, mapDispatchToProps)(AddReview);
+export default AddReview;

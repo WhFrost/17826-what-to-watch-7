@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
-import FilmProp from '../prop-validation/film.prop';
 import {useParams} from 'react-router-dom';
 import VideoPlayer from '../video-player/video-player';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
+import {getFilms} from '../../store/data/selectors';
 import {getVideoPlayerFormatDuration} from '../../common';
 import browserHistory from '../../browser-history';
 
-function Player(props) {
+function Player() {
   const [isPlaying, setIsPlaying] = useState(true);
-  const {films} = props;
+  const films = useSelector(getFilms);
   const {id} = useParams();
   const film = films.find((element) => element.id === Number(id));
   const {name, videoLink, previewImage, runtime} = film;
@@ -61,13 +60,4 @@ function Player(props) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  films: state.films,
-});
-
-Player.propTypes = {
-  films: PropTypes.arrayOf(FilmProp).isRequired,
-};
-
-export {Player};
-export default connect(mapStateToProps, null)(Player);
+export default Player;

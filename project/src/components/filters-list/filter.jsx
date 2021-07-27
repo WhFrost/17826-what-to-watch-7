@@ -1,18 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {useSelector, useDispatch} from 'react-redux';
+import {getCurrentGenre} from '../../store/data/selectors';
+import {changeGenre, resetCountShownFilms} from '../../store/action';
 import {createCapitalizedFirstLetter} from '../../common';
 
 function Filter(props) {
-  const {filter, currentGenre, onChangeGenre} = props;
+  const {filter} = props;
+  const currentGenre = useSelector(getCurrentGenre);
+  const dispatch = useDispatch();
 
   return (
     <li className={`catalog__genres-item ${currentGenre === filter && 'catalog__genres-item--active'}`}>
       <a href="/#" className="catalog__genres-link" data-genre={filter}
         onClick={(evt) => {
           evt.preventDefault();
-          onChangeGenre(evt.target.dataset.genre);
+          dispatch(changeGenre(evt.target.dataset.genre));
+          dispatch(resetCountShownFilms());
         }}
       >{createCapitalizedFirstLetter(filter)}
       </a>
@@ -20,22 +24,8 @@ function Filter(props) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  currentGenre: state.currentGenre,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeGenre(genre) {
-    dispatch(ActionCreator.changeGenre(genre));
-    dispatch(ActionCreator.resetCountShownFilms());
-  },
-});
-
 Filter.propTypes = {
   filter: PropTypes.string.isRequired,
-  currentGenre: PropTypes.string.isRequired,
-  onChangeGenre: PropTypes.func.isRequired,
 };
 
-export {Filter};
-export default connect(mapStateToProps, mapDispatchToProps)(Filter);
+export default Filter;

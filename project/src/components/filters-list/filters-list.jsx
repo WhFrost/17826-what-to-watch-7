@@ -1,15 +1,16 @@
 import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
-import FilmProp from '../prop-validation/film.prop';
-import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {useSelector, useDispatch} from 'react-redux';
+import {getFilms, getGenres} from '../../store/data/selectors';
+import {setGenres} from '../../store/action';
 import Filter from './filter';
 
-function FiltersList(props) {
-  const {films, genres, setGenres} = props;
+function FiltersList(prps) {
+  const films = useSelector(getFilms);
+  const genres = useSelector(getGenres);
+  const dispatch = useDispatch();
 
   /*eslint-disable-next-line */
-  useEffect(() => setGenres(films), [films]);
+  useEffect(() => dispatch(setGenres(films)), [films]);
 
   return (
     <ul className="catalog__genres-list">
@@ -18,20 +19,4 @@ function FiltersList(props) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  genres: state.genres,
-});
-const mapDispatchToProps = (dispatch) => ({
-  setGenres(films) {
-    dispatch(ActionCreator.setGenres(films));
-  },
-});
-
-FiltersList.propTypes = {
-  films: PropTypes.arrayOf(FilmProp).isRequired,
-  genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  setGenres: PropTypes.func.isRequired,
-};
-
-export {FiltersList};
-export default connect(mapStateToProps, mapDispatchToProps)(FiltersList);
+export default FiltersList;

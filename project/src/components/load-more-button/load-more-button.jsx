@@ -1,15 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import {useDispatch} from 'react-redux';
+import {loadMoreFilms} from '../../store/action';
 
 function LoadMoreButton(props) {
-  const {loadMore} = props;
+  const dispatch = useDispatch();
 
   return (
     <div className="catalog__more">
       <button className="catalog__button" type="button"
-        onClick={() => loadMore()}
+        onClick={() => dispatch(loadMoreFilms())}
       >
         Show more
       </button>
@@ -17,15 +16,4 @@ function LoadMoreButton(props) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  loadMore() {
-    dispatch(ActionCreator.loadMoreFilms());
-  },
-});
-
-LoadMoreButton.propTypes = {
-  loadMore: PropTypes.func.isRequired,
-};
-
-export {LoadMoreButton};
-export default connect(null, mapDispatchToProps)(LoadMoreButton);
+export default LoadMoreButton;

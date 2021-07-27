@@ -1,13 +1,15 @@
+import {createAction} from '@reduxjs/toolkit';
 import {INC_QUANTITY_FILMS} from '../const';
 
 const ActionType = {
   LOAD_FILMS: 'data/loadFilms',
   LOAD_PROMO_FILM: 'data/loadPromoFilm',
-  LOAD_CURRENT_FILM: 'data/loadCurrentFilm',
-  RESET_CURRENT_FILM: 'data/resetCurrentFilm',
-  LOAD_REVIEWS: 'data/loadReviews',
-  ADD_REVIEW: 'data/addReview',
-  LOAD_SIMILAR_FILMS: 'data/loadSimilarFilms',
+  LOAD_CURRENT_FILM: 'currentFilm/loadCurrentFilm',
+  RESET_CURRENT_FILM: 'currentFilm/resetCurrentFilm',
+  LOAD_REVIEWS: 'currentFilm/loadReviews',
+  ADD_REVIEW: 'currentFilm/addReview',
+  LOAD_SIMILAR_FILMS: 'currentFilm/loadSimilarFilms',
+  LOAD_FAVORITE_FILMS: 'data/loadFavoriteFilms',
   SET_GENRES: 'data/setGenres',
   CHANGE_GENRE: 'data/changeGenre',
   LOAD_MORE_FILMS: 'data/loadMoreFilms',
@@ -18,66 +20,64 @@ const ActionType = {
   REDIRECT_TO_ROUTE: 'navigation/redirectToRoute',
 };
 
-const ActionCreator ={
-  loadFilms: (films) => ({
-    type: ActionType.LOAD_FILMS,
-    payload: films,
-  }),
-  loadPromoFilm: (promoFilm) => ({
-    type: ActionType.LOAD_PROMO_FILM,
-    payload: promoFilm,
-  }),
-  loadCurrentFilm: (currentFilm) => ({
-    type: ActionType.LOAD_CURRENT_FILM,
-    payload: currentFilm,
-  }),
-  resetCurrentFilm: () => ({
-    type: ActionType.RESET_CURRENT_FILM,
-  }),
-  loadReviews: (reviews) => ({
-    type: ActionType.LOAD_REVIEWS,
-    payload: reviews,
-  }),
-  addReview: (review) => ({
-    type: ActionType.ADD_REVIEW,
-    payload: review,
-  }),
-  loadSimilarFilms: (similarFilms) => ({
-    type: ActionType.LOAD_SIMILAR_FILMS,
-    payload: similarFilms,
-  }),
-  setGenres: (films) => ({
-    type: ActionType.SET_GENRES,
-    payload: films,
-  }),
-  changeGenre: (genre) => ({
-    type: ActionType.CHANGE_GENRE,
-    payload: genre,
-  }),
-  loadMoreFilms: () => ({
-    type: ActionType.LOAD_MORE_FILMS,
-    payload: INC_QUANTITY_FILMS,
-  }),
-  resetCountShownFilms: () => ({
-    type: ActionType.RESET_COUNT_SHOWN_FILMS,
-  }),
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: status,
-  }),
-  logout: () => ({
-    type: ActionType.LOGOUT,
-  }),
-  setLoginError: () => ({
-    type: ActionType.SET_LOGIN_ERROR,
-  }),
-  redirectToRoute: (url) => ({
-    type: ActionType.REDIRECT_TO_ROUTE,
-    payload: url,
-  }),
-};
+const loadFilms = createAction(ActionType.LOAD_FILMS, (films) => ({
+  payload: films,
+}));
+const loadPromoFilm = createAction(ActionType.LOAD_PROMO_FILM, (promoFilm) => ({
+  payload: promoFilm,
+}));
+const loadCurrentFilm = createAction(ActionType.LOAD_CURRENT_FILM, (currentFilm) => ({
+  payload: currentFilm,
+}));
+const resetCurrentFilm = createAction(ActionType.RESET_CURRENT_FILM);
+const loadReviews = createAction(ActionType.LOAD_REVIEWS, (reviews) => ({
+  payload: reviews,
+}));
+const addReview = createAction(ActionType.ADD_REVIEW, (review) => ({
+  payload: review,
+}));
+const loadSimilarFilms = createAction(ActionType.LOAD_SIMILAR_FILMS, (similarFilms) => ({
+  payload: similarFilms,
+}));
+const loadFavoriteFilms = createAction(ActionType.LOAD_FAVORITE_FILMS, (favoriteFilms) => ({
+  payload: favoriteFilms,
+}));
+const setGenres = createAction(ActionType.SET_GENRES, (films) => ({
+  payload: films,
+}));
+const changeGenre = createAction(ActionType.CHANGE_GENRE, (genre) => ({
+  payload: genre,
+}));
+const loadMoreFilms = createAction(ActionType.LOAD_MORE_FILMS, () => ({
+  payload: INC_QUANTITY_FILMS,
+}));
+const resetCountShownFilms = createAction(ActionType.RESET_COUNT_SHOWN_FILMS);
+const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => ({
+  payload: status,
+}));
+const logout = createAction(ActionType.LOGOUT);
+const setLoginError = createAction(ActionType.SET_LOGIN_ERROR);
+const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({
+  payload: url,
+}));
+
 
 export {
   ActionType,
-  ActionCreator
+  loadFilms,
+  loadPromoFilm,
+  loadCurrentFilm,
+  resetCurrentFilm,
+  loadReviews,
+  addReview,
+  loadSimilarFilms,
+  loadFavoriteFilms,
+  setGenres,
+  changeGenre,
+  loadMoreFilms,
+  resetCountShownFilms,
+  requireAuthorization,
+  logout,
+  setLoginError,
+  redirectToRoute
 };

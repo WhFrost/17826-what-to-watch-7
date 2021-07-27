@@ -1,49 +1,54 @@
 import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
-import FilmProp from '../prop-validation/film.prop';
-import ReviewProp from '../prop-validation/review.prop';
 import {Link, useParams} from 'react-router-dom';
 import Header from '../header/header';
 import FilmDesk from '../film-desk/film-desk';
 import FilmList from '../films-list/films-list';
 import Footer from '../footer/footer';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {getAuthorizationStatus} from '../../store/user/selectors';
+import {
+  getCurrentFilm,
+  getIsCurrentFilmLoaded,
+  getReviews,
+  getIsReviewsLoaded,
+  getSimilarFilms,
+  getIsSimilarFilmsLoaded
+} from '../../store/currentFilm/selectors';
 import browserHistory from '../../browser-history';
 import {
   fetchCurrentFilm,
   fetchReviews,
   fetchSimilar
 } from '../../store/api-action';
-import {ActionCreator} from '../../store/action';
+import {resetCurrentFilm} from '../../store/action';
 import LoadingSpinner from '../loading/loading';
 import {AuthorizationStatus} from '../../const';
 
-function Film(props) {
-  const {
-    authorizationStatus,
-    currentFilm,
-    isCurrentFilmLoaded,
-    reviews,
-    isReviewsLoaded,
-    similarFilms,
-    isSimilarFilmsLoaded,
-    loadFilms,
-    loadReviews,
-    resetFilm} = props;
+function Film() {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const currentFilm = useSelector(getCurrentFilm);
+  const isCurrentFilmLoaded = useSelector(getIsCurrentFilmLoaded);
+  const reviews = useSelector(getReviews);
+  const isReviewsLoaded = useSelector(getIsReviewsLoaded);
+  const similarFilms = useSelector(getSimilarFilms);
+  const isSimilarFilmsLoaded = useSelector(getIsSimilarFilmsLoaded);
+
+  const dispatch = useDispatch();
 
   const {id} = useParams();
 
   useEffect(() => {
     if (currentFilm.id !== Number(id)) {
-      resetFilm();
-      loadFilms(id);
+      dispatch(resetCurrentFilm());
+      dispatch(fetchCurrentFilm(id));
+      dispatch(fetchSimilar(id));
     }
     return currentFilm;
   /*eslint-disable-next-line */
   }, [id]);
 
   /*eslint-disable-next-line */
-  useEffect(() => loadReviews(id), [id]);
+  useEffect(() => dispatch(fetchReviews(id)), [id]);
 
   const {
     name,
@@ -129,41 +134,4 @@ function Film(props) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  currentFilm: state.currentFilm,
-  isCurrentFilmLoaded: state.isCurrentFilmLoaded,
-  reviews: state.reviews,
-  isReviewsLoaded: state.isReviewsLoaded,
-  similarFilms: state.similarFilms,
-  isSimilarFilmsLoaded: state.isSimilarFilmsLoaded,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  resetFilm() {
-    dispatch(ActionCreator.resetCurrentFilm());
-  },
-  loadFilms(id) {
-    dispatch(fetchCurrentFilm(id));
-    dispatch(fetchSimilar(id));
-  },
-  loadReviews(id) {
-    dispatch(fetchReviews(id));
-  },
-});
-
-Film.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  currentFilm: FilmProp.isRequired,
-  isCurrentFilmLoaded: PropTypes.bool.isRequired,
-  reviews: PropTypes.arrayOf(ReviewProp).isRequired,
-  isReviewsLoaded: PropTypes.bool.isRequired,
-  similarFilms: PropTypes.arrayOf(FilmProp).isRequired,
-  isSimilarFilmsLoaded: PropTypes.bool.isRequired,
-  loadFilms: PropTypes.func.isRequired,
-  loadReviews: PropTypes.func.isRequired,
-  resetFilm: PropTypes.func.isRequired,
-};
-
-export {Film};
-export default connect(mapStateToProps, mapDispatchToProps)(Film);
+export default Film;
