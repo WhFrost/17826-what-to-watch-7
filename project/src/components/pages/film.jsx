@@ -39,8 +39,10 @@ function Film(props) {
       loadFilms(id);
     }
     return currentFilm;
+  /*eslint-disable-next-line */
   }, [id]);
 
+  /*eslint-disable-next-line */
   useEffect(() => loadReviews(id), [id]);
 
   const {
