@@ -4,15 +4,15 @@ import PropTypes from 'prop-types';
 function VideoPlayer(props) {
   const {isPlaying, muted, src, poster} = props;
 
-  const videoRef = useRef();
+  const videoRef = useRef(null);
 
   useEffect(() => {
     isPlaying ? videoRef.current.play() : videoRef.current.pause();
-  });
+  }, [isPlaying]);
 
   return (
     <video
-      ref = {videoRef}
+      ref={videoRef}
       src={src}
       className="player__video"
       poster={poster}
