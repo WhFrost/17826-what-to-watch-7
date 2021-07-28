@@ -20,9 +20,9 @@ import {
   fetchReviews,
   fetchSimilar
 } from '../../store/api-action';
-import {resetCurrentFilm} from '../../store/action';
+import {redirectToRoute, resetCurrentFilm} from '../../store/action';
 import LoadingSpinner from '../loading/loading';
-import {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus, AppRoute} from '../../const';
 
 function Film() {
   const authorizationStatus = useSelector(getAuthorizationStatus);
@@ -92,12 +92,27 @@ function Film() {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 18 14" width="18" height="14">
-                    <use xlinkHref="#in-list"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                {
+                  authorizationStatus === AuthorizationStatus.AUTH
+                    ?
+                    <button className="btn btn--list film-card__button" type="button">
+                      <svg viewBox="0 0 18 14" width="18" height="14">
+                        <use xlinkHref="#in-list"></use>
+                      </svg>
+                      <span>My list</span>
+                    </button>
+                    :
+                    <button
+                      className="btn btn--list film-card__button"
+                      type="button"
+                      onClick={() => dispatch(redirectToRoute(AppRoute.LOGIN))}
+                    >
+                      <svg viewBox="0 0 18 14" width="18" height="14">
+                        <use xlinkHref="#add"></use>
+                      </svg>
+                      <span>My list</span>
+                    </button>
+                }
                 {
                   authorizationStatus === AuthorizationStatus.AUTH
                     ? <Link to={`/film/${id}/review`} className="btn film-card__button">Add review</Link>
