@@ -1,6 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import {
   loadCurrentFilm,
+  addFavoriteFilm,
   resetCurrentFilm,
   loadReviews,
   addReview,
@@ -27,6 +28,7 @@ const initialState = {
     released: 0,
     isFavorite: false,
   },
+  favoriteFilm: {},
   isCurrentFilmLoaded: false,
   reviews: [],
   isReviewsLoaded: false,
@@ -39,6 +41,9 @@ const currentFilm = createReducer(initialState, (builder) => {
     .addCase(loadCurrentFilm, (state, action) => {
       state.currentFilm = action.payload;
       state.isCurrentFilmLoaded = true;
+    })
+    .addCase(addFavoriteFilm, (state, action) => {
+      state.currentFilm.isFavorite = action.payload;
     })
     .addCase(resetCurrentFilm, (state) => {
       state.currentFilm = initialState.currentFilm;

@@ -2,8 +2,8 @@ import {createReducer} from '@reduxjs/toolkit';
 import {
   loadFilms,
   loadPromoFilm,
-  loadFavoriteFilms,
   addFavoriteFilm,
+  loadFavoriteFilms,
   setGenres,
   changeGenre,
   loadMoreFilms,
@@ -37,12 +37,12 @@ const data = createReducer(initialState, (builder) => {
       state.promoFilm = action.payload;
       state.isPromoFilmLoaded = true;
     })
+    .addCase(addFavoriteFilm, (state, action) => {
+      state.promoFilm.isFavorite = action.payload;
+    })
     .addCase(loadFavoriteFilms, (state, action) => {
       state.favoriteFilms = action.payload;
       state.isFavoriteFilmsLoaded = true;
-    })
-    .addCase(addFavoriteFilm, (state, action) => {
-      state.favoriteFilms = action.payload;
     })
     .addCase(setGenres, (state, action) => {
       state.genres = [DEFAULT_GENRE, ...new Set(action.payload.reduce((acc, current) => {

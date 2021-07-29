@@ -10,7 +10,7 @@ const ActionType = {
   ADD_REVIEW: 'currentFilm/addReview',
   LOAD_SIMILAR_FILMS: 'currentFilm/loadSimilarFilms',
   LOAD_FAVORITE_FILMS: 'data/loadFavoriteFilms',
-  ADD_FAVORITE_FILM: 'data/addFavoriteFilm',
+  ADD_FAVORITE_FILM: 'currentFilm/addFavoriteFilm',
   SET_GENRES: 'data/setGenres',
   CHANGE_GENRE: 'data/changeGenre',
   LOAD_MORE_FILMS: 'data/loadMoreFilms',

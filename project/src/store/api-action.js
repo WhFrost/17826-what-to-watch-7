@@ -3,6 +3,7 @@ import {
   loadPromoFilm,
   loadFavoriteFilms,
   loadCurrentFilm,
+  addFavoriteFilm,
   loadReviews,
   loadSimilarFilms,
   requireAuthorization,
@@ -27,6 +28,12 @@ const fetchFavoriteFilms = () => (dispatch, _getState, api) => (
   api.get(APIRoute.FAVORITE)
     .then(({data}) => data.map((favoriteFilm) => adaptFilmToClient(favoriteFilm)))
     .then((favoriteFilms) => dispatch(loadFavoriteFilms(favoriteFilms)))
+);
+const postFavoriteFilm = (id, status) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.FAVORITE}/${id}/${status}`)
+    .then(({data}) => adaptFilmToClient(data))
+    .then((favoriteFilm) => dispatch(addFavoriteFilm(favoriteFilm.isFavorite)))
+    .catch(() => {})
 );
 const fetchCurrentFilm = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.FILMS}/${id}`)
@@ -72,6 +79,7 @@ export {
   fetchPromoFilm,
   fetchFavoriteFilms,
   fetchCurrentFilm,
+  postFavoriteFilm,
   fetchReviews,
   addReview,
   fetchSimilar,

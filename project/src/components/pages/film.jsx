@@ -17,6 +17,7 @@ import {
 import browserHistory from '../../browser-history';
 import {
   fetchCurrentFilm,
+  postFavoriteFilm,
   fetchReviews,
   fetchSimilar
 } from '../../store/api-action';
@@ -64,6 +65,11 @@ function Film() {
     return <LoadingSpinner />;
   }
 
+  const handleFavoriteClick = () => {
+    const isFavoriteFilm = currentFilm.isFavorite ? 0 : 1;
+    dispatch(postFavoriteFilm(id, isFavoriteFilm));
+  };
+
   return (
     <>
       <section className="film-card film-card--full" style={{backgroundColor}}>
@@ -96,7 +102,11 @@ function Film() {
                 {
                   authorizationStatus === AuthorizationStatus.AUTH
                     ?
-                    <button className="btn btn--list film-card__button" type="button">
+                    <button
+                      className="btn btn--list film-card__button"
+                      type="button"
+                      onClick={() => handleFavoriteClick()}
+                    >
                       <svg viewBox="0 0 18 14" width="18" height="14">
                         <use xlinkHref={isFavorite ? '#in-list' : '#add'}></use>
                       </svg>

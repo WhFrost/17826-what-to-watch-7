@@ -4,6 +4,7 @@ import browserHistory from '../../browser-history';
 import {useSelector, useDispatch} from 'react-redux';
 import {getAuthorizationStatus} from '../../store/user/selectors';
 import {redirectToRoute} from '../../store/action';
+import {fetchPromoFilm, postFavoriteFilm} from '../../store/api-action';
 import {AuthorizationStatus, AppRoute} from '../../const';
 
 function FilmCard(props) {
@@ -13,6 +14,13 @@ function FilmCard(props) {
   const dispatch = useDispatch();
 
   const authorizationStatus = useSelector(getAuthorizationStatus);
+
+  const handleFavoriteClick = () => {
+    const isFavoriteFilm = promoFilm.isFavorite ? 0 : 1;
+    dispatch(postFavoriteFilm(id, isFavoriteFilm));
+    dispatch(fetchPromoFilm());
+  };
+
   return (
     <div className="film-card__wrap">
       <div className="film-card__info">
@@ -44,7 +52,11 @@ function FilmCard(props) {
             {
               authorizationStatus === AuthorizationStatus.AUTH
                 ?
-                <button className="btn btn--list film-card__button" type="button">
+                <button
+                  className="btn btn--list film-card__button"
+                  type="button"
+                  onClick={() => handleFavoriteClick()}
+                >
                   <svg viewBox="0 0 18 14" width="18" height="14">
                     <use xlinkHref={isFavorite ? '#in-list' : '#add'}></use>
                   </svg>

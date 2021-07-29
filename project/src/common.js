@@ -50,40 +50,11 @@ const adaptFilmToClient = (film) => {
   return adaptedFilm;
 };
 
-const adaptFilmToServer = (film) => {
-  const adaptedFilm = Object.assign(
-    {},
-    film,
-    {
-      'poster_image': film.posterImage,
-      'preview_image' : film.previewImage,
-      'background_image': film.backgroundImage,
-      'background_color': film.backgroundColor,
-      'scores_count': film.scoresCount,
-      'run_time': film.runtime,
-      'is_favorite': film.isFavorite,
-      'video_link': film.videoLink,
-      'preview_video_link': film.previewVideoLink,
-    },
-  );
-  delete adaptedFilm.posterImage;
-  delete adaptedFilm.previewImage;
-  delete adaptedFilm.backgroundImage;
-  delete adaptedFilm.backgroundColor;
-  delete adaptedFilm.scoresCount;
-  delete adaptedFilm.runtime;
-  delete adaptedFilm.isFavorite;
-  delete adaptedFilm.videoLink;
-  delete adaptedFilm.previewVideoLink;
-  return adaptedFilm;
-};
-
 export {
   getRandomInteger,
   getRandomItem,
   getVideoPlayerFormatDuration,
   getFilmFormatDuration,
   createCapitalizedFirstLetter,
-  adaptFilmToClient,
-  adaptFilmToServer
+  adaptFilmToClient
 };
