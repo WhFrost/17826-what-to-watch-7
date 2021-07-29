@@ -10,6 +10,7 @@ const ActionType = {
   ADD_REVIEW: 'currentFilm/addReview',
   LOAD_SIMILAR_FILMS: 'currentFilm/loadSimilarFilms',
   LOAD_FAVORITE_FILMS: 'data/loadFavoriteFilms',
+  ADD_FAVORITE_FILM: 'data/addFavoriteFilm',
   SET_GENRES: 'data/setGenres',
   CHANGE_GENRE: 'data/changeGenre',
   LOAD_MORE_FILMS: 'data/loadMoreFilms',
@@ -42,6 +43,9 @@ const loadSimilarFilms = createAction(ActionType.LOAD_SIMILAR_FILMS, (similarFil
 const loadFavoriteFilms = createAction(ActionType.LOAD_FAVORITE_FILMS, (favoriteFilms) => ({
   payload: favoriteFilms,
 }));
+const addFavoriteFilm = createAction(ActionType.ADD_FAVORITE_FILM, (favoriteFilm) => ({
+  payload: favoriteFilm,
+}));
 const setGenres = createAction(ActionType.SET_GENRES, (films) => ({
   payload: films,
 }));
@@ -72,6 +76,7 @@ export {
   addReview,
   loadSimilarFilms,
   loadFavoriteFilms,
+  addFavoriteFilm,
   setGenres,
   changeGenre,
   loadMoreFilms,

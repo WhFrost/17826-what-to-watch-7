@@ -3,6 +3,7 @@ import {
   loadFilms,
   loadPromoFilm,
   loadFavoriteFilms,
+  addFavoriteFilm,
   setGenres,
   changeGenre,
   loadMoreFilms,
@@ -39,6 +40,9 @@ const data = createReducer(initialState, (builder) => {
     .addCase(loadFavoriteFilms, (state, action) => {
       state.favoriteFilms = action.payload;
       state.isFavoriteFilmsLoaded = true;
+    })
+    .addCase(addFavoriteFilm, (state, action) => {
+      state.favoriteFilms = action.payload;
     })
     .addCase(setGenres, (state, action) => {
       state.genres = [DEFAULT_GENRE, ...new Set(action.payload.reduce((acc, current) => {

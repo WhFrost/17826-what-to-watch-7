@@ -1,11 +1,18 @@
 import React from 'react';
 import FilmProp from '../prop-validation/film.prop';
 import browserHistory from '../../browser-history';
+import {useSelector, useDispatch} from 'react-redux';
+import {getAuthorizationStatus} from '../../store/user/selectors';
+import {redirectToRoute} from '../../store/action';
+import {AuthorizationStatus, AppRoute} from '../../const';
 
 function FilmCard(props) {
   const {promoFilm} = props;
+  const {id, posterImage, name, genre, released, isFavorite} = promoFilm;
 
-  const {id, posterImage, name, genre, released} = promoFilm;
+  const dispatch = useDispatch();
+
+  const authorizationStatus = useSelector(getAuthorizationStatus);
   return (
     <div className="film-card__wrap">
       <div className="film-card__info">
@@ -34,12 +41,27 @@ function FilmCard(props) {
               </svg>
               <span>Play</span>
             </button>
-            <button className="btn btn--list film-card__button" type="button">
-              <svg viewBox="0 0 19 20" width="19" height="20">
-                <use xlinkHref="#add"></use>
-              </svg>
-              <span>My list</span>
-            </button>
+            {
+              authorizationStatus === AuthorizationStatus.AUTH
+                ?
+                <button className="btn btn--list film-card__button" type="button">
+                  <svg viewBox="0 0 18 14" width="18" height="14">
+                    <use xlinkHref={isFavorite ? '#in-list' : '#add'}></use>
+                  </svg>
+                  <span>My list</span>
+                </button>
+                :
+                <button
+                  className="btn btn--list film-card__button"
+                  type="button"
+                  onClick={() => dispatch(redirectToRoute(AppRoute.LOGIN))}
+                >
+                  <svg viewBox="0 0 18 14" width="18" height="14">
+                    <use xlinkHref="#add"></use>
+                  </svg>
+                  <span>My list</span>
+                </button>
+            }
           </div>
         </div>
       </div>
