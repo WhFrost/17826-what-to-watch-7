@@ -23,7 +23,7 @@ import {
 } from '../../store/api-action';
 import {redirectToRoute, resetCurrentFilm} from '../../store/action';
 import LoadingSpinner from '../loading/loading';
-import {AuthorizationStatus, AppRoute} from '../../const';
+import {AuthorizationStatus, AppRoute, FavoriteStatus} from '../../const';
 
 function Film() {
   const authorizationStatus = useSelector(getAuthorizationStatus);
@@ -66,7 +66,7 @@ function Film() {
   }
 
   const handleFavoriteClick = () => {
-    const isFavoriteFilm = currentFilm.isFavorite ? 0 : 1;
+    const isFavoriteFilm = currentFilm.isFavorite ? FavoriteStatus.NO : FavoriteStatus.YES;
     dispatch(postFavoriteFilm(id, isFavoriteFilm));
   };
 
