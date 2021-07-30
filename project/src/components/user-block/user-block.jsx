@@ -1,13 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
-import {getAuthorizationStatus} from '../../store/user/selectors';
+import {getAuthorizationStatus, getUserAvatar} from '../../store/user/selectors';
 import {AppRoute, AuthorizationStatus} from '../../const';
 import browserHistory from '../../browser-history';
 import {logout} from '../../store/api-action';
 
 function UserBlock() {
   const authorizationStatus = useSelector(getAuthorizationStatus);
+  const userAvatar = useSelector(getUserAvatar);
   const dispatch = useDispatch();
 
   return (
@@ -18,7 +19,7 @@ function UserBlock() {
           <>
             <li className="user-block__item">
               <div className="user-block__avatar">
-                <Link to={AppRoute.MY_LIST}><img src="img/avatar.jpg" alt="User avatar" width="63" height="63" /></Link>
+                <Link to={AppRoute.MY_LIST}><img src={userAvatar} alt="User avatar" width="63" height="63" /></Link>
               </div>
             </li>
             <li className="user-block__item">

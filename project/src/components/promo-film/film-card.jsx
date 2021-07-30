@@ -17,7 +17,7 @@ function FilmCard(props) {
 
   const handleFavoriteClick = () => {
     const isFavoriteFilm = promoFilm.isFavorite ? 0 : 1;
-    dispatch(postFavoriteFilm(id, isFavoriteFilm));
+    dispatch(postFavoriteFilm(id, isFavoriteFilm, true));
   };
 
   return (

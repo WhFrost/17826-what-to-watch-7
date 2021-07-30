@@ -3,10 +3,12 @@ import {
   loadPromoFilm,
   loadFavoriteFilms,
   loadCurrentFilm,
-  addFavoriteFilm,
+  addPromoFilmToFavorite,
+  addCurrentFilmToFavorite,
   loadReviews,
   loadSimilarFilms,
   requireAuthorization,
+  setUserAvatar,
   setLoginError,
   logout as closeSession,
   redirectToRoute
@@ -29,10 +31,10 @@ const fetchFavoriteFilms = () => (dispatch, _getState, api) => (
     .then(({data}) => data.map((favoriteFilm) => adaptFilmToClient(favoriteFilm)))
     .then((favoriteFilms) => dispatch(loadFavoriteFilms(favoriteFilms)))
 );
-const postFavoriteFilm = (id, status) => (dispatch, _getState, api) => (
+const postFavoriteFilm = (id, status, isPromo) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.FAVORITE}/${id}/${status}`)
     .then(({data}) => adaptFilmToClient(data))
-    .then((favoriteFilm) => dispatch(addFavoriteFilm(favoriteFilm.isFavorite)))
+    .then((favoriteFilm) => isPromo ? dispatch(addPromoFilmToFavorite(favoriteFilm.isFavorite)) : dispatch(addCurrentFilmToFavorite(favoriteFilm.isFavorite)))
     .catch(() => {})
 );
 const fetchCurrentFilm = (id) => (dispatch, _getState, api) => (
@@ -56,12 +58,18 @@ const addReview = (id, review) => (dispatch, _getState, api) => (
 );
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(({data}) => {
+      dispatch(requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(setUserAvatar(data.avatar_url));
+    })
     .catch(() => {})
 );
 const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
-    .then(({data}) => localStorage.setItem('token', data.token))
+    .then(({data}) => {
+      localStorage.setItem('token', data.token);
+      dispatch(setUserAvatar(data.avatar_url));
+    })
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(redirectToRoute(AppRoute.ROOT)))
     .catch(() => {

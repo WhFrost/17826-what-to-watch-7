@@ -10,12 +10,14 @@ const ActionType = {
   ADD_REVIEW: 'currentFilm/addReview',
   LOAD_SIMILAR_FILMS: 'currentFilm/loadSimilarFilms',
   LOAD_FAVORITE_FILMS: 'data/loadFavoriteFilms',
-  ADD_FAVORITE_FILM: 'currentFilm/addFavoriteFilm',
+  ADD_PROMO_FILM_TO_FAVORITE: 'dataFilm/addPromoFilmToFavorite',
+  ADD_CURRENT_FILM_TO_FAVORITE: 'dataFilm/addCurrentFilmToFavorite',
   SET_GENRES: 'data/setGenres',
   CHANGE_GENRE: 'data/changeGenre',
   LOAD_MORE_FILMS: 'data/loadMoreFilms',
   RESET_COUNT_SHOWN_FILMS: 'data/resetCountShowFilms',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
+  SET_USER_AVATAR: 'user/setAvatar',
   LOGOUT: 'user/logout',
   SET_LOGIN_ERROR: 'user/loginIncorrected',
   REDIRECT_TO_ROUTE: 'navigation/redirectToRoute',
@@ -43,7 +45,10 @@ const loadSimilarFilms = createAction(ActionType.LOAD_SIMILAR_FILMS, (similarFil
 const loadFavoriteFilms = createAction(ActionType.LOAD_FAVORITE_FILMS, (favoriteFilms) => ({
   payload: favoriteFilms,
 }));
-const addFavoriteFilm = createAction(ActionType.ADD_FAVORITE_FILM, (favoriteFilm) => ({
+const addPromoFilmToFavorite = createAction(ActionType.ADD_PROMO_FILM_TO_FAVORITE, (favoriteFilm) => ({
+  payload: favoriteFilm,
+}));
+const addCurrentFilmToFavorite = createAction(ActionType.ADD_CURRENT_FILM_TO_FAVORITE, (favoriteFilm) => ({
   payload: favoriteFilm,
 }));
 const setGenres = createAction(ActionType.SET_GENRES, (films) => ({
@@ -58,6 +63,9 @@ const loadMoreFilms = createAction(ActionType.LOAD_MORE_FILMS, () => ({
 const resetCountShownFilms = createAction(ActionType.RESET_COUNT_SHOWN_FILMS);
 const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => ({
   payload: status,
+}));
+const setUserAvatar = createAction(ActionType.SET_USER_AVATAR, (url) => ({
+  payload: url,
 }));
 const logout = createAction(ActionType.LOGOUT);
 const setLoginError = createAction(ActionType.SET_LOGIN_ERROR);
@@ -76,12 +84,14 @@ export {
   addReview,
   loadSimilarFilms,
   loadFavoriteFilms,
-  addFavoriteFilm,
+  addPromoFilmToFavorite,
+  addCurrentFilmToFavorite,
   setGenres,
   changeGenre,
   loadMoreFilms,
   resetCountShownFilms,
   requireAuthorization,
+  setUserAvatar,
   logout,
   setLoginError,
   redirectToRoute
