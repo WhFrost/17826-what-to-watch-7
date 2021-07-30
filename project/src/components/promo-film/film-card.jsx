@@ -4,7 +4,7 @@ import browserHistory from '../../browser-history';
 import {useSelector, useDispatch} from 'react-redux';
 import {getAuthorizationStatus} from '../../store/user/selectors';
 import {redirectToRoute} from '../../store/action';
-import {postFavoriteFilm} from '../../store/api-action';
+import {fetchPromoFilm, postFavoriteFilm} from '../../store/api-action';
 import {AuthorizationStatus, AppRoute} from '../../const';
 
 function FilmCard(props) {
@@ -18,6 +18,7 @@ function FilmCard(props) {
   const handleFavoriteClick = () => {
     const isFavoriteFilm = promoFilm.isFavorite ? 0 : 1;
     dispatch(postFavoriteFilm(id, isFavoriteFilm, true));
+    dispatch(fetchPromoFilm);
   };
 
   return (
