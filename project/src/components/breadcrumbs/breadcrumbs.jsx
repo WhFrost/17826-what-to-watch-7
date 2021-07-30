@@ -1,10 +1,10 @@
 import React from 'react';
-import FilmProp from '../prop-validation/film.prop';
 import {Link, useParams} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
+import {getCurrentFilm} from '../../store/currentFilm/selectors';
 
-function Breadcrumbs(props) {
-  const {currentFilm} = props;
+function Breadcrumbs() {
+  const currentFilm = useSelector(getCurrentFilm);
   const {id} = useParams();
   const {name} = currentFilm;
   return (
@@ -28,13 +28,5 @@ function Breadcrumbs(props) {
     </nav>
   );
 }
-const mapStateToProps = (state) => ({
-  currentFilm: state.currentFilm,
-});
 
-Breadcrumbs.propTypes = {
-  currentFilm: FilmProp.isRequired,
-};
-
-export {Breadcrumbs};
-export default connect(mapStateToProps, null)(Breadcrumbs);
+export default Breadcrumbs;

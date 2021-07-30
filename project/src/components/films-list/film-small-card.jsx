@@ -32,7 +32,7 @@ function FilmSmallCard(props) {
       </div>
       <h3 className="small-film-card__title">
         <Link className="small-film-card__link"
-          to={`film/${id}`}
+          to={`/film/${id}`}
           onClick={() => setIsPlaying(false)}
         >
           {name}

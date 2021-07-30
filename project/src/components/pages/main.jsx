@@ -1,13 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import FilmProp from '../prop-validation/film.prop';
 import PromoFilm from '../promo-film/promo-film';
 import Catalog from '../catalog/catalog';
 import Footer from '../footer/footer';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
+import {getFilms} from '../../store/data/selectors';
 
-function MainPage(props) {
-  const {films} = props;
+function MainPage() {
+  const films = useSelector(getFilms);
 
   return (
     <>
@@ -22,13 +21,4 @@ function MainPage(props) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  films: state.films,
-});
-
-MainPage.propTypes = {
-  films: PropTypes.arrayOf(FilmProp).isRequired,
-};
-
-export {MainPage};
-export default connect(mapStateToProps, null)(MainPage);
+export default MainPage;

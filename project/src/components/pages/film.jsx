@@ -1,47 +1,55 @@
 import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
-import FilmProp from '../prop-validation/film.prop';
-import ReviewProp from '../prop-validation/review.prop';
 import {Link, useParams} from 'react-router-dom';
 import Header from '../header/header';
 import FilmDesk from '../film-desk/film-desk';
 import FilmList from '../films-list/films-list';
 import Footer from '../footer/footer';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {getAuthorizationStatus} from '../../store/user/selectors';
+import {
+  getCurrentFilm,
+  getIsCurrentFilmLoaded,
+  getReviews,
+  getIsReviewsLoaded,
+  getSimilarFilms,
+  getIsSimilarFilmsLoaded
+} from '../../store/currentFilm/selectors';
 import browserHistory from '../../browser-history';
 import {
   fetchCurrentFilm,
+  postFavoriteFilm,
   fetchReviews,
   fetchSimilar
 } from '../../store/api-action';
-import {ActionCreator} from '../../store/action';
+import {redirectToRoute, resetCurrentFilm} from '../../store/action';
 import LoadingSpinner from '../loading/loading';
-import {AuthorizationStatus} from '../../const';
+import {AuthorizationStatus, AppRoute} from '../../const';
 
-function Film(props) {
-  const {
-    authorizationStatus,
-    currentFilm,
-    isCurrentFilmLoaded,
-    reviews,
-    isReviewsLoaded,
-    similarFilms,
-    isSimilarFilmsLoaded,
-    loadFilms,
-    loadReviews,
-    resetFilm} = props;
+function Film() {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const currentFilm = useSelector(getCurrentFilm);
+  const isCurrentFilmLoaded = useSelector(getIsCurrentFilmLoaded);
+  const reviews = useSelector(getReviews);
+  const isReviewsLoaded = useSelector(getIsReviewsLoaded);
+  const similarFilms = useSelector(getSimilarFilms);
+  const isSimilarFilmsLoaded = useSelector(getIsSimilarFilmsLoaded);
+
+  const dispatch = useDispatch();
 
   const {id} = useParams();
 
   useEffect(() => {
     if (currentFilm.id !== Number(id)) {
-      resetFilm();
-      loadFilms(id);
+      dispatch(resetCurrentFilm());
+      dispatch(fetchCurrentFilm(id));
+      dispatch(fetchSimilar(id));
     }
     return currentFilm;
+  /*eslint-disable-next-line */
   }, [id]);
 
-  useEffect(() => loadReviews(id), [id]);
+  /*eslint-disable-next-line */
+  useEffect(() => dispatch(fetchReviews(id)), [id]);
 
   const {
     name,
@@ -50,11 +58,17 @@ function Film(props) {
     genre,
     released,
     backgroundColor,
+    isFavorite,
   } = currentFilm;
 
   if (!isCurrentFilmLoaded || !isReviewsLoaded) {
     return <LoadingSpinner />;
   }
+
+  const handleFavoriteClick = () => {
+    const isFavoriteFilm = currentFilm.isFavorite ? 0 : 1;
+    dispatch(postFavoriteFilm(id, isFavoriteFilm));
+  };
 
   return (
     <>
@@ -85,12 +99,31 @@ function Film(props) {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 18 14" width="18" height="14">
-                    <use xlinkHref="#in-list"></use>
-                  </svg>
-                  <span>My list</span>
-                </button>
+                {
+                  authorizationStatus === AuthorizationStatus.AUTH
+                    ?
+                    <button
+                      className="btn btn--list film-card__button"
+                      type="button"
+                      onClick={() => handleFavoriteClick()}
+                    >
+                      <svg viewBox="0 0 18 14" width="18" height="14">
+                        <use xlinkHref={isFavorite ? '#in-list' : '#add'}></use>
+                      </svg>
+                      <span>My list</span>
+                    </button>
+                    :
+                    <button
+                      className="btn btn--list film-card__button"
+                      type="button"
+                      onClick={() => dispatch(redirectToRoute(AppRoute.LOGIN))}
+                    >
+                      <svg viewBox="0 0 18 14" width="18" height="14">
+                        <use xlinkHref="#add"></use>
+                      </svg>
+                      <span>My list</span>
+                    </button>
+                }
                 {
                   authorizationStatus === AuthorizationStatus.AUTH
                     ? <Link to={`/film/${id}/review`} className="btn film-card__button">Add review</Link>
@@ -127,41 +160,4 @@ function Film(props) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-  currentFilm: state.currentFilm,
-  isCurrentFilmLoaded: state.isCurrentFilmLoaded,
-  reviews: state.reviews,
-  isReviewsLoaded: state.isReviewsLoaded,
-  similarFilms: state.similarFilms,
-  isSimilarFilmsLoaded: state.isSimilarFilmsLoaded,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  resetFilm() {
-    dispatch(ActionCreator.resetCurrentFilm());
-  },
-  loadFilms(id) {
-    dispatch(fetchCurrentFilm(id));
-    dispatch(fetchSimilar(id));
-  },
-  loadReviews(id) {
-    dispatch(fetchReviews(id));
-  },
-});
-
-Film.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  currentFilm: FilmProp.isRequired,
-  isCurrentFilmLoaded: PropTypes.bool.isRequired,
-  reviews: PropTypes.arrayOf(ReviewProp).isRequired,
-  isReviewsLoaded: PropTypes.bool.isRequired,
-  similarFilms: PropTypes.arrayOf(FilmProp).isRequired,
-  isSimilarFilmsLoaded: PropTypes.bool.isRequired,
-  loadFilms: PropTypes.func.isRequired,
-  loadReviews: PropTypes.func.isRequired,
-  resetFilm: PropTypes.func.isRequired,
-};
-
-export {Film};
-export default connect(mapStateToProps, mapDispatchToProps)(Film);
+export default Film;

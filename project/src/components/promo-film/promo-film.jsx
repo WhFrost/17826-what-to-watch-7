@@ -1,11 +1,11 @@
 import React from 'react';
 import Header from '../header/header';
 import FilmCard from './film-card';
-import FilmProp from '../prop-validation/film.prop';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
+import {getPromoFilm} from '../../store/data/selectors';
 
-function PromoFilm(props) {
-  const {promoFilm} = props;
+function PromoFilm() {
+  const promoFilm = useSelector(getPromoFilm);
   const {backgroundImage, name} = promoFilm;
 
   return (
@@ -24,13 +24,4 @@ function PromoFilm(props) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  promoFilm: state.promoFilm,
-});
-
-PromoFilm.propTypes = {
-  promoFilm: FilmProp.isRequired,
-};
-
-export {PromoFilm};
-export default connect(mapStateToProps, null)(PromoFilm);
+export default PromoFilm;

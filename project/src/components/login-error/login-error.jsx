@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
+import {getIsLoginIncorrected} from '../../store/user/selectors';
 import {LOGIN_ERROR_MESSAGE} from '../../const';
 
-function LoginError (props) {
-  const {isLoginIncorrected} = props;
+function LoginError () {
+  const isLoginIncorrected = useSelector(getIsLoginIncorrected);
 
   if (isLoginIncorrected) {
     return (
@@ -18,13 +18,4 @@ function LoginError (props) {
   return null;
 }
 
-const mapStateToProps = (state) => ({
-  isLoginIncorrected: state.isLoginIncorrected,
-});
-
-LoginError.propTypes = {
-  isLoginIncorrected: PropTypes.bool.isRequired,
-};
-
-export {LoginError};
-export default connect(mapStateToProps, null)(LoginError);
+export default LoginError;

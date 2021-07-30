@@ -3,13 +3,13 @@ const getRandomInteger = (min, max) => min + Math.floor(Math.random() * (max + 1
 const getRandomItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 const getVideoPlayerFormatDuration = (time) => {
-  const hours = Math.floor(time / 60);
-  const minutes = Math.floor(time % 60);
-  const seconds = Math.floor(minutes / 60);
+  const hours = Math.floor(time / 3600);
+  const minutes = Math.floor(time / 60);
+  const seconds = Math.floor(time % 60);
   if (hours < 1) {
-    return `${minutes}:${seconds}`;
+    return `-${minutes}:${seconds}`;
   }
-  return `${hours}:${minutes}:${seconds}`;
+  return `-${hours}:${minutes}:${seconds}`;
 };
 
 const getFilmFormatDuration = (time) => {

@@ -1,14 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import FilmProp from '../prop-validation/film.prop';
+import React, {useEffect} from 'react';
 import HeaderLogo from '../logo/header-logo';
 import UserBlock from '../user-block/user-block';
 import FilmsList from '../films-list/films-list';
 import Footer from '../footer/footer';
-import {connect} from 'react-redux';
+import LoadingSpinner from '../loading/loading';
+import {useSelector, useDispatch} from 'react-redux';
+import {getFavoriteFilms, getIsFavoriteFilmsLoaded} from '../../store/data/selectors';
+import {fetchFavoriteFilms} from '../../store/api-action';
 
-function MyList(props) {
-  const {films} = props;
+function MyList() {
+  const favoriteFilms = useSelector(getFavoriteFilms);
+  const isFilmsListLoaded = useSelector(getIsFavoriteFilmsLoaded);
+  const dispatch = useDispatch();
+
+  /*eslint-disable-next-line */
+  useEffect(() => dispatch(fetchFavoriteFilms()), []);
+
+  useEffect(() => {
+    if (!isFilmsListLoaded) {
+      <LoadingSpinner />;
+    }
+  });
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -16,19 +29,10 @@ function MyList(props) {
         <h1 className="page-title user-page__title">My list</h1>
         <UserBlock />
       </header>
-      <FilmsList films = {films}/>
+      <FilmsList films = {favoriteFilms}/>
       <Footer />
     </div>
   );
 }
 
-const mapStateToProps = (state) => ({
-  films: state.films,
-});
-
-MyList.propTypes = {
-  films: PropTypes.arrayOf(FilmProp).isRequired,
-};
-
-export {MyList};
-export default connect(mapStateToProps, null)(MyList);
+export default MyList;
