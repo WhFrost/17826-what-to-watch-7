@@ -6,8 +6,9 @@ import FilmReview from './film-review';
 function FilmReviews(props) {
   const {reviews} = props;
 
-  const oddReviews = reviews.slice().filter((review) => review.id % 2 !== 0);
-  const evenReviews = reviews.slice().filter((review) => review.id % 2 === 0);
+  const oddReviews = [];
+  const evenReviews = [];
+  reviews.forEach((review, index) => (index - 1) % 2 !== 0 ? oddReviews.push(review) : evenReviews.push(review));
 
   return (
     <div className="film-card__reviews film-card__row">

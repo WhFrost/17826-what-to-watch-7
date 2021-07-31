@@ -13,7 +13,7 @@ const COUNT_REVIEWS = 8;
 const MAX_STARS = 5;
 const RATING = [10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
 
-const FILM_TABS = {
+const FilmTabs = {
   OVERVIEW: 'overview',
   DETAILS: 'details',
   REVIEWS: 'reviews',
@@ -75,7 +75,7 @@ export {
   COUNT_REVIEWS,
   MAX_STARS,
   RATING,
-  FILM_TABS,
+  FilmTabs,
   DATE_LOCAL,
   DATE_LOCAL_OPTIONS,
   DEFAULT_GENRE,

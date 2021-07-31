@@ -6,10 +6,10 @@ import FilmNav from '../film-nav/film-nav';
 import FilmOverview from './film-overview';
 import FilmDetails from './film-details';
 import FilmReviews from './film-reviews';
-import {FILM_TABS} from '../../const';
+import {FilmTabs} from '../../const';
 
 function FilmDesk(props) {
-  const [activeTab, setActiveTab] = useState(FILM_TABS.OVERVIEW);
+  const [activeTab, setActiveTab] = useState(FilmTabs.OVERVIEW);
   const {film, reviews} = props;
 
   const handleTabClick = (tab) => {
@@ -18,11 +18,11 @@ function FilmDesk(props) {
 
   const getFilmInfo = (tab, movie) => {
     switch (tab) {
-      case FILM_TABS.OVERVIEW:
+      case FilmTabs.OVERVIEW:
         return <FilmOverview film={movie} />;
-      case FILM_TABS.DETAILS:
+      case FilmTabs.DETAILS:
         return <FilmDetails film={movie} />;
-      case FILM_TABS.REVIEWS:
+      case FilmTabs.REVIEWS:
         return <FilmReviews reviews={reviews} />;
       default:
         return <FilmOverview film={movie} />;

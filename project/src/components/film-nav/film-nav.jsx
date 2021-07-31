@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FilmTab from './film-tab';
-import {FILM_TABS} from '../../const';
+import {FilmTabs} from '../../const';
 
 function FilmNav(props) {
   const {activeTab, handleTabClick} = props;
-  const tabs = Object.values(FILM_TABS);
+  const tabs = Object.values(FilmTabs);
 
   return (
     <nav className="film-nav film-card__nav">
