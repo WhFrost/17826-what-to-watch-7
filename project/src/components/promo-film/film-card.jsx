@@ -1,6 +1,5 @@
 import React from 'react';
 import FilmProp from '../prop-validation/film.prop';
-import browserHistory from '../../browser-history';
 import {useSelector, useDispatch} from 'react-redux';
 import {getAuthorizationStatus} from '../../store/user/selectors';
 import {redirectToRoute} from '../../store/action';
@@ -42,7 +41,7 @@ function FilmCard(props) {
 
           <div className="film-card__buttons">
             <button className="btn btn--play film-card__button" type="button"
-              onClick={() => browserHistory.push(`/player/${id}`)}
+              onClick={() => dispatch(redirectToRoute(`player/${id}`))}
             >
               <svg viewBox="0 0 19 19" width="19" height="19">
                 <use xlinkHref="#play-s"></use>

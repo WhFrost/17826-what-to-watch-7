@@ -3,8 +3,8 @@ import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
 import {getAuthorizationStatus, getUserAvatar} from '../../store/user/selectors';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import browserHistory from '../../browser-history';
 import {logout} from '../../store/api-action';
+import {redirectToRoute} from '../../store/action';
 
 function UserBlock() {
   const authorizationStatus = useSelector(getAuthorizationStatus);
@@ -42,7 +42,7 @@ function UserBlock() {
               href="/#"
               onClick={(evt) => {
                 evt.preventDefault();
-                browserHistory.push(AppRoute.LOGIN);
+                dispatch(redirectToRoute(AppRoute.LOGIN));
               }}
             >
             Sign in

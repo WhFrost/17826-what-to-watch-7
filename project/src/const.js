@@ -30,10 +30,10 @@ const DATE_LOCAL_OPTIONS = {
 const DEFAULT_GENRE = 'All genres';
 const INITIAL_QUANTITY_FILMS = 8;
 const INC_QUANTITY_FILMS = 8;
-const minNormalRating = 3;
-const minGoodlRating = 5;
-const minVeryGoodRating = 8;
-const awesomeRating = 10;
+const MIN_NORMAL_RATING = 3;
+const MIN_GOOD_RATING = 5;
+const MIN_VERY_GOOD_RATING = 8;
+const AWESOME_RATING = 10;
 
 const TextualRating = {
   BAD: 'Bad',
@@ -81,10 +81,10 @@ export {
   DEFAULT_GENRE,
   INITIAL_QUANTITY_FILMS,
   INC_QUANTITY_FILMS,
-  minNormalRating,
-  minGoodlRating,
-  minVeryGoodRating,
-  awesomeRating,
+  MIN_NORMAL_RATING,
+  MIN_GOOD_RATING,
+  MIN_VERY_GOOD_RATING,
+  AWESOME_RATING,
   TextualRating,
   MIN_LENGTH_REVIEW,
   MAX_LENGTH_REVIEW,
